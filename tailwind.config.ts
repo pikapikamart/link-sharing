@@ -18,6 +18,16 @@ const config: Config = {
     },
     fontFamily: {
       instrument: ["var(--font-instrument_sans)"],
+    },
+    colors: {
+      "blue-one": "#633CFF",
+      "violet-one": "#BEADFF",
+      "violet-two": "#EFEBFF",
+      "dark-one": "#333333",
+      "dark-two": "#737373",
+      "gray-one": "#D9D9D9",
+      "gray-two": "#FAFAFA",
+      "red-one": "#FF3939"
     }
   },
   plugins: [],
