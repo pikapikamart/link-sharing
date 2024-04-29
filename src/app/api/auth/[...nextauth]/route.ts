@@ -46,7 +46,7 @@ export const nextAuthOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/credentials-signin"
-  }
+  },
 }
 
 
