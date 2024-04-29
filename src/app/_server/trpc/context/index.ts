@@ -5,7 +5,8 @@ export const  createContext = ({ req, resHeaders}: FetchCreateContextFnOptions) 
   
   return { 
     req, 
-    resHeaders }
+    resHeaders 
+  }
 }
 
 export type Context = Awaited<ReturnType<typeof createContext>>

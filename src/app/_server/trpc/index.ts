@@ -1,8 +1,8 @@
 import { initTRPC } from "@trpc/server"
-import { TrpcContext } from "./context"
+import { Context } from "./context"
 
 
-const trpc = initTRPC.context<TrpcContext>().create()
+const trpc = initTRPC.context<Context>().create()
 
 export const router = trpc.router
 export const procedure = trpc.procedure

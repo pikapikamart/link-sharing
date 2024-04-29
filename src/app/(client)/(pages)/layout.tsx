@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { instrument_sans } from "../_lib/utils/fonts";
-import { TRPC } from "../components/trpc";
+import { Provider } from "../_components/provider";
 
 
 export const metadata: Metadata = {
@@ -18,10 +18,9 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en">
       <body className={`${ instrument_sans } font-instrument`}>
-        {/* @ts-ignore */}
-        <TRPC>
+        <Provider>
           { children }
-        </TRPC>
+        </Provider>
       </body>
     </html>
   )
