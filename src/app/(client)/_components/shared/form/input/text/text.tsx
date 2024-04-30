@@ -24,7 +24,7 @@ const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTML
     ...rest } = props
 
   return (
-    <div className="mb-6">
+    <div>
       <label
         className=" text-dark-grey text-xs block mb-1" 
         htmlFor={attributes.id?? ""}>{ label }</label>

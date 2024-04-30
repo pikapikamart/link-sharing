@@ -1,7 +1,63 @@
+import { FormTextInput } from "../../../shared/form/input/text"
+import { DragIcon } from "../../../svgs/drag"
+import { LinkIcon } from "../../../svgs/link"
 import { StartedVector } from "../../../svgs/started"
+import { useHomeForm } from "./hook"
+import { HomeFormSelect } from "./select"
 
 
 const Form = () =>{
+  const { 
+    fields,
+    register,
+    setValue,
+    handleAddNewLink,
+    handleRemoveLink,
+    handleSubmit,
+    watch,
+    formErrors } = useHomeForm()
+
+  const renderLinks = () =>{
+    const mappedLinks = fields.map((field, index) => (
+      <div 
+        key={`${ field.id }`}
+        className="bg-light-grey rounded-lg p-5 text-left mb-6">
+        <div className="flex justify-between items-center mb-3">
+          <div className="flex items-center">
+            <button className="h-6 w-6 grid place-content-center">
+              <span className="sr-only">Drag item</span>
+              <DragIcon />
+            </button>
+            <p className="ml-2 font-bold text-grey">Link #{ index+1 }</p>
+          </div>
+          <button
+            onClick={ () => handleRemoveLink(index) } 
+            className="text-grey">Remove</button>
+        </div>
+        <div className="mb-3">
+          <HomeFormSelect
+            index={ index } 
+            setValue={ (value) => setValue(`links.${ index }.platform`, value) }
+            error={ formErrors?.links?.[index]?.platform?.message }
+            value={ watch(`links.${ index }.platform`) } />
+        </div>
+        <div>
+          <FormTextInput
+            label="Link"
+            attributes={{ id: `link-${ index }` }}
+            placeHolder="e.g. something.com"
+            error={ formErrors?.links?.[index]?.link?.message }
+            { ...register(`links.${ index }.link`) }>
+            <div className="w-4 h-4 text-grey">
+              <LinkIcon />
+            </div>
+          </FormTextInput>
+        </div>
+      </div>
+    ))
+
+    return mappedLinks
+  }
 
   return (
     <div className="bg-white rounded-lg pt-6 max-w-[808px] relative md:pt-10">
@@ -10,30 +66,35 @@ const Form = () =>{
         <p className=" text-grey">Add/edit/remove links below and then share all your profiles with the world!</p>
       </div>
       <form
-        className="">
+        className=" lg:max-h-[540px] lg:overflow-y-auto"
+        onSubmit={ handleSubmit }>
         <div className="px-6 md:px-10">
           <button
             className="w-full font-semibold text-purple border border-purple h-[46px] flex items-center justify-center rounded-lg" 
-            type="button">+ Add new link
+            type="button"
+            onClick={ handleAddNewLink } >+ Add new link
           </button>
         </div>
         <div className="px-6 mt-6 text-center mb-6 md:px-10 md:mb-0">
-          <div className="bg-light-grey rounded-lg py-[46px] px-5 md:py-20 lg:py-16">
-            <div className="w-[124px] mb-6 max-w-max mx-auto md:w-[250px] md:mb-10">
-              <StartedVector />
+          { fields.length===0 && (
+            <div className="bg-light-grey rounded-lg py-[46px] px-5 md:py-20 lg:py-16">
+              <div>
+                <div className="w-[124px] mb-6 max-w-max mx-auto md:w-[250px] md:mb-10">
+                  <StartedVector />
+                </div>
+                <div>
+                  <h2 className="mb-6 font-bold text-dark-grey text-2xl md:text-[32px]">Let’s get you started</h2>
+                  <p className="text-grey max-w-[488px] mx-auto">Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you share your profiles with everyone!</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h2 className="mb-6 font-bold text-dark-grey text-2xl md:text-[32px]">Let’s get you started</h2>
-              <p className="text-grey max-w-[488px] mx-auto">Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you share your profiles with everyone!</p>
-            </div>
-          </div>
+          ) }
+          { renderLinks() }
         </div>
         <div className="border-t border-t-borders p-4 w-full lg:absolute lg:bottom-0 lg:py-6 lg:px-10">
           <button
             className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto disabled:bg-opacity-25`}
-            type="submit"
-            disabled>
-            Save
+            type="submit">Save
           </button>
         </div>
       </form>
