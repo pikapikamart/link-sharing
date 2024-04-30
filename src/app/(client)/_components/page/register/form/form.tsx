@@ -31,13 +31,17 @@ const Form = () =>{
               htmlFor="email">Email address</label>
             <div className="relative">
               <input
-                className="w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 placeholder:opacity-50" 
+                { ...register("email") }
+                className={`w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 pr-[128px] placeholder:opacity-50 ${ formErrors.email?.message && "border-red" }`}
                 type="text"
                 id="email"
                 placeholder="e.g. alex@email.com" />
-              <div className="absolute left-4 top-1/2 -translate-y-1/2">
+              <div 
+                className="absolute left-4 top-1/2 -translate-y-1/2"
+                aria-hidden="true">
                 <EmailIcon />
               </div>
+              { formErrors.email?.message && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-red text-xs">{ formErrors.email.message }</span> }
             </div>
           </div>
           <div className="mb-6">
@@ -46,13 +50,17 @@ const Form = () =>{
               htmlFor="password">Create password</label>
             <div className="relative">
               <input
-                className="w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 placeholder:opacity-50" 
-                type="text"
+                { ...register("password") }
+                className="w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 pr-[128px] placeholder:opacity-50" 
+                type="password"
                 id="password"
                 placeholder="At least .8 characters" />
-              <div className="absolute left-4 top-1/2 -translate-y-1/2">
+              <div 
+                className="absolute left-4 top-1/2 -translate-y-1/2"
+                aria-hidden="true">
                 <PasswordIcon />
               </div>
+              { formErrors.password?.message && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-red text-xs">{ formErrors.password.message }</span> }
             </div>
           </div>
           <div className="mb-6">
@@ -61,19 +69,23 @@ const Form = () =>{
               htmlFor="confirmPassword">Confirm password</label>
             <div className="relative">
               <input
-                className="w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 placeholder:opacity-50" 
-                type="text"
+                { ...register("confirmPassword") }
+                className="w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 pr-[128px] placeholder:opacity-50" 
+                type="password"
                 id="confirmPassword"
                 placeholder="At least .8 characters" />
-              <div className="absolute left-4 top-1/2 -translate-y-1/2">
+              <div 
+                className="absolute left-4 top-1/2 -translate-y-1/2"
+                aria-hidden="true">
                 <PasswordIcon />
               </div>
+              { formErrors.confirmPassword?.message && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-red text-xs">{ formErrors.confirmPassword.message }</span> }
             </div>
           </div>
           <p className="mt-6 text-grey text-xs">Password must contain at least 8 characters</p>
         </div>
         <button
-          className="mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple"
+          className="mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover"
           type="submit">Create new account
         </button>
         <p className="text-grey text-center flex flex-col items-center md:block">
