@@ -9,7 +9,7 @@ export const users = mysqlTable("user", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
-  password: varchar("password", { length: 255 }),
+  password: varchar("password", { length: 255 }).notNull(),
   emailVerified: timestamp("emailVerified", {
     mode: "date",
     fsp: 3,
