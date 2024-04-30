@@ -4,6 +4,7 @@ import { EmailIcon } from "../../../svgs/email"
 import { LogoIcon } from "../../../svgs/logo"
 import { PasswordIcon } from "../../../svgs/password"
 import { useRegisterForm } from "./hook"
+import { FormTextInput } from "../../../shared/form/input/text"
 
 
 const Form = () =>{
@@ -26,61 +27,40 @@ const Form = () =>{
         </div>
         <div className="mb-6">
           <div className="mb-6">
-            <label
-              className=" text-dark-grey text-xs block mb-1" 
-              htmlFor="email">Email address</label>
-            <div className="relative">
-              <input
-                { ...register("email") }
-                className={`w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 pr-[128px] placeholder:opacity-50 ${ formErrors.email?.message && "border-red" }`}
-                type="text"
-                id="email"
-                placeholder="e.g. alex@email.com" />
-              <div 
-                className="absolute left-4 top-1/2 -translate-y-1/2"
-                aria-hidden="true">
-                <EmailIcon />
-              </div>
-              { formErrors.email?.message && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-red text-xs">{ formErrors.email.message }</span> }
-            </div>
+            <FormTextInput
+              label="Email address"
+              attributes={{ id: "email" }}
+              placeHolder="e.g. alex@email.com"
+              error={ formErrors.email?.message }
+              { ...register("email") }>
+              <EmailIcon />
+            </FormTextInput>
           </div>
           <div className="mb-6">
-            <label
-              className=" text-dark-grey text-xs block mb-1" 
-              htmlFor="password">Create password</label>
-            <div className="relative">
-              <input
-                { ...register("password") }
-                className="w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 pr-[128px] placeholder:opacity-50" 
-                type="password"
-                id="password"
-                placeholder="At least .8 characters" />
-              <div 
-                className="absolute left-4 top-1/2 -translate-y-1/2"
-                aria-hidden="true">
-                <PasswordIcon />
-              </div>
-              { formErrors.password?.message && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-red text-xs">{ formErrors.password.message }</span> }
-            </div>
+            <FormTextInput
+              label="Create password"
+              attributes={{ 
+                id: "password" ,
+                type: "password"
+              }}
+              placeHolder="At least .8 characters"
+              error={ formErrors.password?.message }
+              { ...register("password") }>
+              <PasswordIcon />
+            </FormTextInput>
           </div>
           <div className="mb-6">
-            <label
-              className=" text-dark-grey text-xs block mb-1" 
-              htmlFor="confirmPassword">Confirm password</label>
-            <div className="relative">
-              <input
-                { ...register("confirmPassword") }
-                className="w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 pr-[128px] placeholder:opacity-50" 
-                type="password"
-                id="confirmPassword"
-                placeholder="At least .8 characters" />
-              <div 
-                className="absolute left-4 top-1/2 -translate-y-1/2"
-                aria-hidden="true">
-                <PasswordIcon />
-              </div>
-              { formErrors.confirmPassword?.message && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-red text-xs">{ formErrors.confirmPassword.message }</span> }
-            </div>
+            <FormTextInput
+              label="Confirm password"
+              attributes={{ 
+                id: "confirmPassword" ,
+                type: "password"
+              }}
+              placeHolder="At least .8 characters"
+              error={ formErrors.confirmPassword?.message }
+              { ...register("confirmPassword") }>
+              <PasswordIcon />
+            </FormTextInput>
           </div>
           <p className="mt-6 text-grey text-xs">Password must contain at least 8 characters</p>
         </div>
