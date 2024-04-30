@@ -10,7 +10,7 @@ const Form = () =>{
     fields } = useHomeForm()
 
   return (
-    <div className="bg-white rounded-lg pt-6 max-w-[808px] relative md:pt-10">
+    <div className="bg-white rounded-lg pt-6 max-w-[808px] relative min-h-[calc(100vh-90px)] md:pt-10">
       <div className="mb-10 px-6 md:px-10">
         <h1 className="font-bold text-2xl text-dark-grey mb-2 md:text-[32px] leading-[1.5]">Customize your links</h1>
         <p className=" text-grey">Add/edit/remove links below and then share all your profiles with the world!</p>
@@ -41,7 +41,7 @@ const Form = () =>{
           ) }
           { fields?.length!==0 && <FormLinks /> }
         </div>
-        <div className="border-t border-t-borders p-4 w-full lg:absolute lg:bottom-0 lg:py-6 lg:px-10">
+        <div className="border-t border-t-borders p-4 w-full absolute bottom-0 lg:py-6 lg:px-10">
           <button
             className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 ${ fields?.length===0 && "active:aria-disabled:bg-purple active:aria-disabled:bg-opacity-25" }`}
             type="submit"

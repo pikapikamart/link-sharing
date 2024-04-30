@@ -89,7 +89,7 @@ const Select = (props: SelectProps) =>{
           className={`selectButton !w-full ${ hasError && "!border !border-red !border-solid" }`}
           {  ...hasError && {...{"aria-labelledby": `platform-${ index }`}} }>
           { renderPlatform() }
-          <Ariakit.SelectArrow />
+          <Ariakit.SelectArrow className="text-purple" />
         </Ariakit.Select>
         <Ariakit.SelectPopover gutter={4} sameWidth className="selectPopover">
           <Ariakit.SelectItem className="select-item" value="github">{ renderPlatform("github") }</Ariakit.SelectItem>

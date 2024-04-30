@@ -13,7 +13,7 @@ export const homeFormSchema = z.object({
       .min(1, "Make sure to choose a platform"),
     link: z
       .string()
-      .url("Please enter a valid url")
+      .url("Please check the url")
   }))
 })
 
@@ -48,7 +48,7 @@ export const useHomeForm = () =>{
 
   const handleFormSubmit: SubmitHandler<HomeFormSchema> = data => {
     if ( fields.length===0 ) return
-    
+
     console.log(data)
   }
 
