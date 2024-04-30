@@ -47,6 +47,8 @@ export const useHomeForm = () =>{
   const handleRemoveLink = (index: number) => remove(index)
 
   const handleFormSubmit: SubmitHandler<HomeFormSchema> = data => {
+    if ( fields.length===0 ) return
+    
     console.log(data)
   }
 

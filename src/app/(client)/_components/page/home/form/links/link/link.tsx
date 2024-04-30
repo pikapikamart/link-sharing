@@ -31,6 +31,7 @@ const Link = ({ index }: LinkProps) =>{
             className="DragHandle h-6 w-6 grid place-content-center"
             {...attributes}
             {...listeners}
+            type="button"
             ref={ ref }>
             <span className="sr-only">Drag item</span>
             <DragIcon />
@@ -39,7 +40,8 @@ const Link = ({ index }: LinkProps) =>{
         </div>
         <button
           onClick={ () => handleRemoveLink && handleRemoveLink(index) } 
-          className="text-grey">Remove</button>
+          className="text-grey"
+          type="button">Remove</button>
       </div>
       <div className="mb-3">
         <HomeFormSelect

@@ -80,18 +80,18 @@ const Select = (props: SelectProps) =>{
   }
  
   return (
-    <div className="wrapper">
+    <div className="selectWrapper">
       <Ariakit.SelectProvider
         value={ value }
         setValue={ setValue }>
         <Ariakit.SelectLabel className="text-xs text-dark-grey mb-1 text-left pl-0">Platform</Ariakit.SelectLabel>
         <Ariakit.Select 
-          className={`button !w-full ${ hasError && "!border !border-red !border-solid" }`}
+          className={`selectButton !w-full ${ hasError && "!border !border-red !border-solid" }`}
           {  ...hasError && {...{"aria-labelledby": `platform-${ index }`}} }>
           { renderPlatform() }
           <Ariakit.SelectArrow />
         </Ariakit.Select>
-        <Ariakit.SelectPopover gutter={4} sameWidth className="popover">
+        <Ariakit.SelectPopover gutter={4} sameWidth className="selectPopover">
           <Ariakit.SelectItem className="select-item" value="github">{ renderPlatform("github") }</Ariakit.SelectItem>
           <Ariakit.SelectItem className="select-item" value="youtube">{ renderPlatform("youtube") }</Ariakit.SelectItem>
           <Ariakit.SelectItem className="select-item" value="linkedin">{ renderPlatform("linkedin") }</Ariakit.SelectItem>

@@ -20,7 +20,7 @@ const Form = () =>{
         onSubmit={ handleSubmit }>
         <div className="px-6 md:px-10">
           <button
-            className="w-full font-semibold text-purple border border-purple h-[46px] flex items-center justify-center rounded-lg" 
+            className="w-full font-semibold text-purple border border-purple h-[46px] flex items-center justify-center rounded-lg active:bg-light-purple" 
             type="button"
             onClick={ handleAddNewLink } >+ Add new link
           </button>
@@ -43,8 +43,9 @@ const Form = () =>{
         </div>
         <div className="border-t border-t-borders p-4 w-full lg:absolute lg:bottom-0 lg:py-6 lg:px-10">
           <button
-            className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto disabled:bg-opacity-25`}
-            type="submit">Save
+            className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 ${ fields?.length===0 && "active:aria-disabled:bg-purple active:aria-disabled:bg-opacity-25" }`}
+            type="submit"
+            aria-disabled={ fields?.length===0 }>Save
           </button>
         </div>
       </form>
