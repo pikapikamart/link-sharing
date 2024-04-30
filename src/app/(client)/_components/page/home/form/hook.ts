@@ -1,10 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { 
-  SubmitHandler, 
-  useFieldArray, 
-  useForm } from "react-hook-form"
+import { SubmitHandler } from "react-hook-form"
 import { z } from "zod"
+import { HomeFormContext } from "."
+import { useContext } from "react"
 
+
+export const useHomeFormContext = () => useContext(HomeFormContext)
 
 const homeFormSchema = z.object({
   links: z.array(z.object({
@@ -20,26 +20,16 @@ const homeFormSchema = z.object({
 export type HomeFormSchema = z.TypeOf<typeof homeFormSchema>
 
 export const useHomeForm = () =>{
-  const { 
-    register,
-    control,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: {
-      errors: formErrors
-    } } = useForm<HomeFormSchema>({
-    resolver: zodResolver(homeFormSchema)
-  })
-  const { 
-    fields, 
-    append, 
-    remove,
-    swap } = useFieldArray({
-    name: "links",
-    control
-  })
+  const context = useHomeFormContext()
 
+  if ( !context ) return {}
+
+  const { 
+    append,
+    remove,
+    fields } = context.fields
+  const { handleSubmit } = context.methods
+  
   const handleAddNewLink = () =>{
     append({
       link: "",
@@ -56,11 +46,7 @@ export const useHomeForm = () =>{
   return {
     fields,
     handleAddNewLink,
-    register,
-    setValue,
-    handleRemoveLink,
     handleSubmit: handleSubmit(handleFormSubmit),
-    formErrors,
-    watch
+    handleRemoveLink,
   }
 }
