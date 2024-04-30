@@ -1,19 +1,16 @@
 "use client"
-import Link from "next/link"
+import { Header } from "../_components/layout/header"
 
 
 const Page = () =>{
 
   return (
-    <main>
-      <h1 className="">Test</h1>
-      <div>
-        <Link href={"/login"}>Login</Link>
-      </div>
-      <div>
-        <Link href={"/register"}>Register</Link>
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className="bg-light-grey min-h-[calc(100vh-74px)] md:min-h-[calc(100vh-126px)]">
+      
+      </main>
+    </>
   )
 }
 
