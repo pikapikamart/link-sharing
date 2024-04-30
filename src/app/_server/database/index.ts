@@ -1,5 +1,6 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2";
+import * as schema from "./schema"
 
 
 const connection = mysql.createConnection({
@@ -10,4 +11,7 @@ const connection = mysql.createConnection({
   database: process.env.DB_DATABASE as string,
 });
 
-export const db = drizzle(connection);
+export const db = drizzle(connection, {
+  schema: schema,
+  mode: "default"
+});

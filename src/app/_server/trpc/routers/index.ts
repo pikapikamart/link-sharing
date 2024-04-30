@@ -1,9 +1,9 @@
 import { router } from "..";
-import { testRouter } from "./test";
+import { authRouter } from "./auth";
 
 
 export const appRouter = router({
-  test: testRouter,
+  auth: authRouter
 })
 
 export type AppRouter = typeof appRouter

@@ -1,6 +1,10 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
+import { db } from "@/app/_server/database";
+import { eq } from "drizzle-orm";
+import { users } from "@/app/_server/database/schema";
+import bcrypt from "bcrypt"
 
 
 export const nextAuthOptions: NextAuthOptions = {
@@ -8,16 +12,39 @@ export const nextAuthOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "email", type: "text" },
-        password: { label: "password", type: "password" },
+        email: { 
+          label: "email", 
+          type: "text" 
+        },
+        password: { 
+          label: "password", 
+          type: "password" 
+        },
       },
       async authorize(credentials, req) {
-        const user = {
-          ...credentials,
-          name: "",
+        if ( !credentials || !credentials.email || !credentials.password ) {
+
+          return Promise.reject(new Error("Invalid credentials. Make sure to have values"))
         }
 
-        return user;
+        const { email, password } = credentials
+        
+        const foundUser = await db.query.users.findFirst({
+          where: eq(users.email, email)
+        })
+
+        if ( !foundUser || ( foundUser && await bcrypt.compare(foundUser.password, password) ) ) {
+          
+          return Promise.reject(new Error("Authentication failed. Invalid credentials"))
+        }
+        
+        const user = {
+          email: foundUser.email,
+          id: `${ foundUser.id }`,
+          name: ""
+        }
+
+        return user
       }
     })
   ],
@@ -43,12 +70,8 @@ export const nextAuthOptions: NextAuthOptions = {
 
       return newSession;
     }
-  },
-  pages: {
-    signIn: "/auth/credentials-signin"
-  },
+  }
 }
-
 
 const handler = NextAuth(nextAuthOptions)
 
