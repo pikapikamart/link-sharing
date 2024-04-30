@@ -1,9 +1,21 @@
 import { DragIcon } from "@/app/(client)/_components/svgs/drag"
 import { HomeFormSelect } from "../../select"
 import { FormTextInput } from "@/app/(client)/_components/shared/form/input/text"
+import { useHomeForm } from "../../hook"
+import { LinkIcon } from "@/app/(client)/_components/svgs/link"
 
 
-const Link = () =>{
+type LinkProps = {
+  index: number
+}
+
+const Link = ({ index }: LinkProps) =>{
+  const { 
+    handleRemoveLink,
+    register,
+    watch,
+    setValue,
+    formErrors } = useHomeForm()
 
   return (
     <div className="bg-light-grey rounded-lg p-5 text-left mb-6">
@@ -16,15 +28,15 @@ const Link = () =>{
           <p className="ml-2 font-bold text-grey">Link #{ index+1 }</p>
         </div>
         <button
-          onClick={ () => handleRemoveLink(index) } 
+          onClick={ () => handleRemoveLink && handleRemoveLink(index) } 
           className="text-grey">Remove</button>
       </div>
       <div className="mb-3">
         <HomeFormSelect
           index={ index } 
-          setValue={ (value) => setValue(`links.${ index }.platform`, value) }
+          setValue={ (value) => setValue && setValue(`links.${ index }.platform`, value) }
           error={ formErrors?.links?.[index]?.platform?.message }
-          value={ watch(`links.${ index }.platform`) } />
+          value={ watch? watch(`links.${ index }.platform`) : "" } />
       </div>
       <div>
         <FormTextInput
@@ -32,7 +44,7 @@ const Link = () =>{
           attributes={{ id: `link-${ index }` }}
           placeHolder="e.g. something.com"
           error={ formErrors?.links?.[index]?.link?.message }
-          { ...register(`links.${ index }.link`) }>
+          { ...(register && register(`links.${ index }.link`)) }>
           <div className="w-4 h-4 text-grey">
             <LinkIcon />
           </div>

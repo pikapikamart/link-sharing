@@ -39,8 +39,7 @@ const Form = () =>{
               </div>
             </div>
           ) }
-          {/* { fields?.length!==0 && <FormLinks /> } */}
-          
+          { fields?.length!==0 && <FormLinks /> }
         </div>
         <div className="border-t border-t-borders p-4 w-full lg:absolute lg:bottom-0 lg:py-6 lg:px-10">
           <button
@@ -49,7 +48,6 @@ const Form = () =>{
           </button>
         </div>
       </form>
-      
     </div>
   )
 }

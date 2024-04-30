@@ -28,8 +28,15 @@ export const useHomeForm = () =>{
     append,
     remove,
     fields } = context.fields
-  const { handleSubmit } = context.methods
-  
+  const { 
+    register,
+    setValue,
+    handleSubmit,
+    watch,
+    formState: {
+      errors: formErrors
+    } } = context.methods
+
   const handleAddNewLink = () =>{
     append({
       link: "",
@@ -46,7 +53,11 @@ export const useHomeForm = () =>{
   return {
     fields,
     handleAddNewLink,
-    handleSubmit: handleSubmit(handleFormSubmit),
     handleRemoveLink,
+    handleSubmit: handleSubmit(handleFormSubmit),
+    formErrors,
+    register,
+    setValue,
+    watch
   }
 }
