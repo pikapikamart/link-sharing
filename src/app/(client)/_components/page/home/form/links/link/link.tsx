@@ -3,9 +3,11 @@ import { HomeFormSelect } from "../../select"
 import { FormTextInput } from "@/app/(client)/_components/shared/form/input/text"
 import { useHomeForm } from "../../hook"
 import { LinkIcon } from "@/app/(client)/_components/svgs/link"
+import { useContext } from "react"
+import { SortableItemContext } from "."
 
 
-type LinkProps = {
+export type LinkProps = {
   index: number
 }
 
@@ -16,12 +18,20 @@ const Link = ({ index }: LinkProps) =>{
     watch,
     setValue,
     formErrors } = useHomeForm()
+  const { 
+    attributes,
+    listeners,
+    ref } = useContext(SortableItemContext)
 
   return (
     <div className="bg-light-grey rounded-lg p-5 text-left mb-6">
       <div className="flex justify-between items-center mb-3">
         <div className="flex items-center">
-          <button className="h-6 w-6 grid place-content-center">
+          <button 
+            className="DragHandle h-6 w-6 grid place-content-center"
+            {...attributes}
+            {...listeners}
+            ref={ ref }>
             <span className="sr-only">Drag item</span>
             <DragIcon />
           </button>

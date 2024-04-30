@@ -5,22 +5,11 @@ import {
   useForm } from "react-hook-form"
 import Form from "./form"
 import { createContext } from "react"
-import z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { 
+  HomeFormSchema, 
+  homeFormSchema } from "./hook"
 
-
-const homeFormSchema = z.object({
-  links: z.array(z.object({
-    platform: z
-      .string({ message: "Make sure to choose a platform" })
-      .min(1, "Make sure to choose a platform"),
-    link: z
-      .string()
-      .url("Please enter a valid url")
-  }))
-})
-
-export type HomeFormSchema = z.TypeOf<typeof homeFormSchema>
 
 type HomeFormContextProps = {
   methods: UseFormReturn<HomeFormSchema, any, undefined>

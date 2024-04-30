@@ -6,7 +6,7 @@ import { useContext } from "react"
 
 export const useHomeFormContext = () => useContext(HomeFormContext)
 
-const homeFormSchema = z.object({
+export const homeFormSchema = z.object({
   links: z.array(z.object({
     platform: z
       .string({ message: "Make sure to choose a platform" })

@@ -3,32 +3,31 @@ import {
   DndContext, 
   KeyboardSensor, 
   PointerSensor, 
-  useDroppable, 
   useSensor, 
-  useSensors} from "@dnd-kit/core";
+  useSensors} from "@dnd-kit/core"
 import { 
   SortableContext, 
-  sortableKeyboardCoordinates, 
-  verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { useState } from "react";
-import { useHomeForm } from "../hook";
-import { FormLink } from "./link";
+  sortableKeyboardCoordinates } from "@dnd-kit/sortable"
+import { useState } from "react"
+import { useHomeForm, useHomeFormContext } from "../hook"
+import { FormLink } from "./link"
 
 
 const Links = () =>{
-  const { setNodeRef } = useDroppable({ id: "links" })
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
-  const [activeTaskId, setActiveTaskId] = useState<null | Active>(null);
+  const [active, setActive] = useState<null | Active>(null)
   const { fields } = useHomeForm()
+  const context = useHomeFormContext()
 
   const renderLinks = () => {
     const mappedLinks = fields?.map((field, index) => (
       <FormLink 
+        id={ field.id }
         key={ field.id }
         index={ index } />
     ))
@@ -40,22 +39,24 @@ const Links = () =>{
     <DndContext
       sensors={sensors}
       onDragStart={({ active }) => {
-        setActiveTaskId(active);
+        setActive(active)
       }}
       onDragEnd={({ active, over }) => {
         if (over && active.id !== over?.id) {
-          const activeIndex = fields?.findIndex(({ id }) => id === active.id);
-          const overIndex = fields?.findIndex(({ id }) => id === over.id);
+          const activeIndex = fields?.findIndex(({ id }) => id === active.id)
+          const overIndex = fields?.findIndex(({ id }) => id === over.id)
+
+          if ( activeIndex===undefined || overIndex===undefined ) return
+ 
+          context?.fields.move(activeIndex, overIndex)
         }
-        setActiveTaskId(null);
+        setActive(null)
       }}
       onDragCancel={() => {
-        setActiveTaskId(null);
+        setActive(null)
       }}>
-      <SortableContext
-        items={ fields?? [] }
-        strategy={ verticalListSortingStrategy }>
-        <div ref={ setNodeRef }>
+      <SortableContext items={ fields?? [] }>
+        <div>
           { renderLinks() }
         </div>
       </SortableContext>
