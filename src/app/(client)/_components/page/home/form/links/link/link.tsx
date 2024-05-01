@@ -55,8 +55,8 @@ const Link = ({ index }: LinkProps) =>{
           label="Link"
           attributes={{ id: `link-${ index }` }}
           placeHolder="e.g. something.com"
-          error={ formErrors?.links?.[index]?.link?.message }
-          { ...(register && register(`links.${ index }.link`)) }>
+          error={ formErrors?.links?.[index]?.url?.message }
+          { ...(register && register(`links.${ index }.url`)) }>
           <div className="w-4 h-4 text-grey">
             <LinkIcon />
           </div>

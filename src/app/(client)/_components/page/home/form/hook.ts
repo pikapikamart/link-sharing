@@ -11,7 +11,7 @@ export const homeFormSchema = z.object({
     platform: z
       .string({ message: "Make sure to choose a platform" })
       .min(1, "Make sure to choose a platform"),
-    link: z
+    url: z
       .string()
       .url("Please check the url")
   }))
@@ -39,7 +39,7 @@ export const useHomeForm = () =>{
 
   const handleAddNewLink = () =>{
     append({
-      link: "",
+      url: "",
       platform: ""
     })
   }
