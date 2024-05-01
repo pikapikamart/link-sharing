@@ -8,7 +8,10 @@ export const linksSchema = z.object({
       .enum(platforms),
     url: z
       .string()
-      .url("Please check the url")
+      .url("Please check the url"),
+    id: z
+      .number()
+      .optional()
   }))
 })
 

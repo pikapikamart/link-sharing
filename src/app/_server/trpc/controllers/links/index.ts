@@ -2,10 +2,8 @@ import { db } from "@/app/_server/database";
 import { Context } from "../../context";
 import { LinksSchema } from "../../routers/links/schema";
 import { 
-  SQL, 
   eq, 
-  inArray, 
-  sql } from "drizzle-orm";
+  inArray } from "drizzle-orm";
 import { 
   link, 
   user } from "@/app/_server/database/schema";
@@ -29,10 +27,7 @@ export const setHandler = async(input: LinksSchema, ctx: Context) =>{
 
   const links = foundUser.links
 
-  const removedLinks = links.filter(innerLink => {
-    
-    return input.links.every(inputLink => inputLink.platform!==innerLink.platform)
-  })
+  const removedLinks = links.filter(innerLink => input.links.every(inputLink => inputLink.platform!==innerLink.platform))
 
   if ( removedLinks.length ) {
     await db
@@ -41,38 +36,31 @@ export const setHandler = async(input: LinksSchema, ctx: Context) =>{
   }
  
   const linksToBeUpdated = input.links
-    .filter(inputLink => links.some(innerLink => innerLink.platform===inputLink.platform))
-    .map(inputLink => ({
-    ...links.find(innerLink => innerLink.platform===inputLink.platform),
-    url: inputLink.url
-  }))
+    .map((inputLink, index) => ({
+      ...inputLink,
+      position: index+1
+    }))
+    .filter(inputLink => inputLink.id!==undefined)
 
   if ( linksToBeUpdated.length ) {
-    const sqlChunks: SQL[] = []
-    sqlChunks.push(sql`(case`)
+    linksToBeUpdated.forEach(async updateLink => {
+      const { id, ...rest } = updateLink
 
-    linksToBeUpdated.forEach(updateLink => {
-      sqlChunks.push(sql`when id = ${ updateLink.id } then ${ updateLink.url }`)
+      await db
+        .update(link)
+        .set(rest)
+        .where(eq(link.id, id as number))
     })
-
-    sqlChunks.push(sql`end)`)
-    const finalSql: SQL = sql.join(sqlChunks, sql.raw(" "))
-    
-    await db
-      .update(link)
-      .set({
-        url: finalSql
-      })
-      .where(inArray(link.id, linksToBeUpdated.map(updateLink => updateLink.id as number)))
   }
 
   const newLinks = input.links
-    .filter(inputLink => links.every(innerLink => innerLink.platform!==inputLink.platform))
-    .map(newLink => ({
-      ...newLink,
-      userId: foundUser.id
-    }))
-  
+  .map((inputLinks, index) => ({
+    ...inputLinks,
+    userId: foundUser.id,
+    position: index+1
+  }))
+  .filter(inputLink => inputLink.id===undefined)
+ 
   if ( newLinks.length ) {
     
     await db

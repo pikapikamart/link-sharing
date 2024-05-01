@@ -28,10 +28,11 @@ export const link = mysqlTable("link", {
     .autoincrement()
     .primaryKey(),
   platform: mysqlEnum("platform", platforms).notNull(),
-  url: varchar("url", { length: 255 }).notNull(),
+  url: varchar("url", { length: 1000 }).notNull(),
   userId: int("user_id")
     .notNull()
-    .references(() => user.id)
+    .references(() => user.id),
+  position: int("position").notNull()
 })
 
 export const linkRelations = relations(link, ({ one, many }) => ({
