@@ -1,0 +1,1 @@
+ALTER TABLE `link` MODIFY COLUMN `platform` enum('github','youtube','linkedin','facebook','frontendmentor','hashnode','twitter','twitch','devto','codewars','freecodecamp','gitlab','stackoverflow') NOT NULL;

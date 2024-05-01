@@ -1,19 +1,21 @@
 "use client"
-import Link from "next/link"
+import { Header } from "../_components/layout/header"
+import { HomeForm } from "../_components/page/home/form"
+import { HomePreview } from "../_components/page/home/preview"
+import { useQueryAndSetLinks } from "../_store/links/hook"
 
 
 const Page = () =>{
+  useQueryAndSetLinks()
 
   return (
-    <main>
-      <h1 className="">Test</h1>
-      <div>
-        <Link href={"/login"}>Login</Link>
-      </div>
-      <div>
-        <Link href={"/register"}>Register</Link>
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className="bg-light-grey min-h-[calc(100vh-74px)] p-4 md:min-h-[calc(100vh-126px)] md:py-0 md:px-6 lg:grid lg:grid-cols-[560px,1fr] lg:gap-x-6 lg:grid-rows-[834px] lg:pb-6 lg:overflow-hidden">
+        <HomePreview />
+        <HomeForm />
+      </main>
+    </>
   )
 }
 

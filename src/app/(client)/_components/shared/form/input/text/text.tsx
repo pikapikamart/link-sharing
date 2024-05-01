@@ -24,7 +24,7 @@ const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTML
     ...rest } = props
 
   return (
-    <div className="mb-6">
+    <div>
       <label
         className=" text-dark-grey text-xs block mb-1" 
         htmlFor={attributes.id?? ""}>{ label }</label>
@@ -34,7 +34,7 @@ const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTML
           { ...rest }
           type="text"
           { ...attributes }
-          className={`w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 pr-[128px] placeholder:opacity-50 ${ error && "border-red" }`}
+          className={`w-full rounded-lg border-borders border text-dark-grey ps-11 py-3 placeholder:opacity-50 ${ error && "border-red pr-[128px]" }`}
           placeholder={ placeHolder }
           aria-labelledby={`error-${ attributes.id }`} />
         <div 
