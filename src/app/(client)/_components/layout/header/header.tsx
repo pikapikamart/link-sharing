@@ -28,7 +28,7 @@ const Header = () =>{
           </Link>
           <Link
             className="h-full flex items-center justify-center w-[74px] rounded bg-white text-grey md:w-auto md:px-[27px]" 
-            href="/">
+            href="/profile">
             <ProfileIcon />
             <span className="hidden md:inline md:ml-2">Profile Details</span>
           </Link>
