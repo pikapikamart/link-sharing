@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 
 export const  createContext = async({ req, resHeaders}: FetchCreateContextFnOptions) => {
   const token = await getToken({ req })
-
+  
   return { 
     req, 
     resHeaders,

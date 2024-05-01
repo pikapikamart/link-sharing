@@ -8,6 +8,7 @@ declare module "next-auth" {
   user?: {
     name?: string | null,
     email?: string | null,
+    int?: string | null
   };
   expires: ISODateString;
   }
@@ -19,8 +20,9 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT {
-    name?: string | null,
-    email?: string | null,
+    name?: string | null
+    email?: string | null
     userType?: string | null
+    id?: string | null
   }
 }

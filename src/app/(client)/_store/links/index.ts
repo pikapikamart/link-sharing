@@ -1,8 +1,12 @@
 import { create } from "zustand"
 import { createSelectors } from "../"
+import { platforms } from "@/app/_server/database/schema";
+import { 
+  GetElementType, 
+  MakeWritable } from "../../../../../types/utils";
 
 
-export type Platform = "" | "github" | "youtube" | "linkedin" | "facebook" | "frontendmentor" | "hashnode" | "web" | "twitter" | "twitch" | "devto" | "codewars" | "freecodecamp" | "gitlab" | "stackoverflow"
+export type Platform = GetElementType<MakeWritable<typeof platforms>>
  
 export const isLink = (link: (Link | "")): link is Link =>{
   return (link as Link).platform !== undefined

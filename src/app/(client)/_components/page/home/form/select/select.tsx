@@ -14,14 +14,12 @@ import { GitlabIcon } from "@/app/(client)/_components/svgs/gitlab";
 import { StackoverflowIcon } from "@/app/(client)/_components/svgs/stackoverflow";
 import { TwitchIcon } from "@/app/(client)/_components/svgs/twitch";
 import { TwitterIcon } from "@/app/(client)/_components/svgs/twitter";
-import { useContext } from "react";
-import { HomeFormContext } from "..";
 import { useHomeForm } from "../hook";
 
 
 type SelectProps = {
   setValue: (value: Platform) => void
-  value: Platform
+  value: Platform | ""
   index: number
   error?: string
 }
@@ -32,7 +30,7 @@ const Select = (props: SelectProps) =>{
     value,
     index,
     error } = props
-  const hasError = value==="" && (error && error !== "")
+  const hasError = (error && error !== "")
   const { fields } = useHomeForm()
 
   const renderPlatform = (platform?: Platform) =>{
@@ -41,7 +39,9 @@ const Select = (props: SelectProps) =>{
       case "github":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <GithubIcon />
             <p className="ml-3 text-dark-grey">Github</p>
           </div>
@@ -49,7 +49,9 @@ const Select = (props: SelectProps) =>{
       case "youtube":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <YoutubeIcon />
             <p className="ml-3 text-dark-grey">Youtube</p>
           </div>
@@ -57,7 +59,9 @@ const Select = (props: SelectProps) =>{
       case "linkedin":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <LinkedinIcon />
             <p className="ml-3 text-dark-grey">Linkedin</p>
           </div>
@@ -65,7 +69,9 @@ const Select = (props: SelectProps) =>{
       case "facebook":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <FacebookIcon />
             <p className="ml-3 text-dark-grey">Facebook</p>
           </div>
@@ -73,7 +79,9 @@ const Select = (props: SelectProps) =>{
       case "frontendmentor":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <FrontendmentorIcon />
             <p className="ml-3 text-dark-grey">Frontend Mentor</p>
           </div>
@@ -81,7 +89,9 @@ const Select = (props: SelectProps) =>{
       case "hashnode":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <HashnodeIcon />
             <p className="ml-3 text-dark-grey">Hashnode</p>
           </div>
@@ -89,7 +99,9 @@ const Select = (props: SelectProps) =>{
       case "codewars":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <CodewarsIcon />
             <p className="ml-3 text-dark-grey">Codewars</p>
           </div>
@@ -97,7 +109,9 @@ const Select = (props: SelectProps) =>{
       case "devto":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <DevtoIcon />
             <p className="ml-3 text-dark-grey">Dev.to</p>
           </div>
@@ -105,7 +119,9 @@ const Select = (props: SelectProps) =>{
       case "freecodecamp":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <FreecodecampIcon />
             <p className="ml-3 text-dark-grey">freeCodeCamp</p>
           </div>
@@ -113,7 +129,9 @@ const Select = (props: SelectProps) =>{
       case "gitlab":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <GitlabIcon />
             <p className="ml-3 text-dark-grey">Gitlab</p>
           </div>
@@ -121,7 +139,9 @@ const Select = (props: SelectProps) =>{
       case "stackoverflow":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <StackoverflowIcon />
             <p className="ml-3 text-dark-grey">Stack Overflow</p>
           </div>
@@ -129,7 +149,9 @@ const Select = (props: SelectProps) =>{
       case "twitch":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <TwitchIcon />
             <p className="ml-3 text-dark-grey">Twitch</p>
           </div>
@@ -137,19 +159,20 @@ const Select = (props: SelectProps) =>{
       case "twitter":
 
         return (
-          <div className="flex items-center text-grey">
+          <div
+            key={ `select-${ platform }-${ props.index }` }
+             className="flex items-center text-grey">
             <TwitterIcon />
             <p className="ml-3 text-dark-grey">Twitter</p>
           </div>
         )
-      default:
-        return <></>
     }
   }
 
   const renderSelections = () =>{
     const mappedSelections = ["github", "youtube", "linkedin", "facebook", "frontendmentor", "hashnode", "twitter", "twitch", "devto", "codewars", "freecodecamp", "gitlab", "stackoverflow"].map(platform => (
       <Ariakit.SelectItem 
+        key={`selection-item-${ platform }-${props.index} `}
         className="select-item" 
         value={platform}
         disabled={ fields?.find(field => field.platform===platform)? true: false }>{ renderPlatform(platform as Platform) }
