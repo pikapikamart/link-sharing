@@ -11,6 +11,9 @@ export const linksSchema = z.object({
       .url("Please check the url"),
     id: z
       .number()
+      .optional(),
+    position: z
+      .number()
       .optional()
   }))
 })
