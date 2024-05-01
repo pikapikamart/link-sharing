@@ -29,7 +29,7 @@ export const useHomeForm = () =>{
     } } = context.methods
   
   const handleAddNewLink = () =>{
-    const foundAvailablePlatform = platforms.find(platform => fields.every(field => field.platform!==platform))
+    const foundAvailablePlatform = platforms.find(platform => watch("links").every(field => field.platform!==platform))
 
     if ( !foundAvailablePlatform ) return
     

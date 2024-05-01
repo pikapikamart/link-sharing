@@ -31,7 +31,7 @@ const Select = (props: SelectProps) =>{
     index,
     error } = props
   const hasError = (error && error !== "")
-  const { fields } = useHomeForm()
+  const { watch } = useHomeForm()
 
   const renderPlatform = (platform?: Platform) =>{
 
@@ -175,7 +175,7 @@ const Select = (props: SelectProps) =>{
         key={`selection-item-${ platform }-${props.index} `}
         className="select-item" 
         value={platform}
-        disabled={ fields?.find(field => field.platform===platform)? true: false }>{ renderPlatform(platform as Platform) }
+        disabled={ watch && watch("links")?.find(field => field.platform===platform)? true: false }>{ renderPlatform(platform as Platform) }
       </Ariakit.SelectItem>
     ))
 
