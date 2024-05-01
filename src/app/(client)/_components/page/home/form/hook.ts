@@ -11,7 +11,11 @@ export const useHomeFormContext = () => useContext(HomeFormContext)
 
 export const useHomeForm = () =>{
   const context = useHomeFormContext()
-  const { mutate } = trpc.links.set.useMutation()
+  const { mutate } = trpc.links.set.useMutation({
+    onSuccess: data => {
+      setLinks(data.data.links)
+    }
+  })
 
   if ( !context ) return {}
 
@@ -44,7 +48,6 @@ export const useHomeForm = () =>{
   const handleFormSubmit: SubmitHandler<LinksSchema> = data => {
     if ( fields.length===0 ) return
     mutate(data)  
-    setLinks(data.links)
   }
 
   return {

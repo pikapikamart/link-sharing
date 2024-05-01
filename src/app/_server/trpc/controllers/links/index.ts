@@ -79,7 +79,7 @@ export const setHandler = async(input: LinksSchema, ctx: Context) =>{
 
       returnedLinks.push({
         ...newLink,
-        id: insertResult[0].insertId+index+1
+        id: insertResult[0].insertId+index
       })
     })
   }
