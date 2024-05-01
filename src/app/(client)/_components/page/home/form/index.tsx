@@ -7,20 +7,20 @@ import Form from "./form"
 import { createContext } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { 
-  HomeFormSchema, 
-  homeFormSchema } from "./hook"
+  LinksSchema, 
+  linksSchema } from "@/app/_server/trpc/routers/links/schema"
 
 
 type HomeFormContextProps = {
-  methods: UseFormReturn<HomeFormSchema, any, undefined>
-  fields: UseFieldArrayReturn<HomeFormSchema, "links", "id">
+  methods: UseFormReturn<LinksSchema, any, undefined>
+  fields: UseFieldArrayReturn<LinksSchema, "links", "id">
 }
 
 export const HomeFormContext = createContext<HomeFormContextProps | null>(null)
 
 const HomeForm = () =>{
-  const methods = useForm<HomeFormSchema>({
-    resolver: zodResolver(homeFormSchema)
+  const methods = useForm<LinksSchema>({
+    resolver: zodResolver(linksSchema)
   })
   const fields = useFieldArray({
     name: "links",

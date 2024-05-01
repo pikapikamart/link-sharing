@@ -14,6 +14,9 @@ import { GitlabIcon } from "@/app/(client)/_components/svgs/gitlab";
 import { StackoverflowIcon } from "@/app/(client)/_components/svgs/stackoverflow";
 import { TwitchIcon } from "@/app/(client)/_components/svgs/twitch";
 import { TwitterIcon } from "@/app/(client)/_components/svgs/twitter";
+import { useContext } from "react";
+import { HomeFormContext } from "..";
+import { useHomeForm } from "../hook";
 
 
 type SelectProps = {
@@ -30,6 +33,7 @@ const Select = (props: SelectProps) =>{
     index,
     error } = props
   const hasError = value==="" && (error && error !== "")
+  const { fields } = useHomeForm()
 
   const renderPlatform = (platform?: Platform) =>{
 
@@ -142,6 +146,18 @@ const Select = (props: SelectProps) =>{
         return <></>
     }
   }
+
+  const renderSelections = () =>{
+    const mappedSelections = ["github", "youtube", "linkedin", "facebook", "frontendmentor", "hashnode", "twitter", "twitch", "devto", "codewars", "freecodecamp", "gitlab", "stackoverflow"].map(platform => (
+      <Ariakit.SelectItem 
+        className="select-item" 
+        value={platform}
+        disabled={ fields?.find(field => field.platform===platform)? true: false }>{ renderPlatform(platform as Platform) }
+      </Ariakit.SelectItem>
+    ))
+
+    return mappedSelections
+  }
  
   return (
     <div className="selectWrapper">
@@ -156,19 +172,7 @@ const Select = (props: SelectProps) =>{
           <Ariakit.SelectArrow className="text-purple" />
         </Ariakit.Select>
         <Ariakit.SelectPopover gutter={4} sameWidth className="selectPopover">
-          <Ariakit.SelectItem className="select-item" value="github">{ renderPlatform("github") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="youtube">{ renderPlatform("youtube") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="linkedin">{ renderPlatform("linkedin") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="facebook">{ renderPlatform("facebook") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="frontendmentor">{ renderPlatform("frontendmentor") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="hashnode">{ renderPlatform("hashnode") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="codewars">{ renderPlatform("codewars") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="devto">{ renderPlatform("devto") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="freecodecamp">{ renderPlatform("freecodecamp") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="gitlab">{ renderPlatform("gitlab") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="stackoverflow">{ renderPlatform("stackoverflow") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="twitch">{ renderPlatform("twitch") }</Ariakit.SelectItem>
-          <Ariakit.SelectItem className="select-item" value="twitter">{ renderPlatform("twitter") }</Ariakit.SelectItem>
+          { renderSelections() }
         </Ariakit.SelectPopover>
       </Ariakit.SelectProvider>
       { hasError && (

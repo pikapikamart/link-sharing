@@ -1,23 +1,11 @@
 import { SubmitHandler } from "react-hook-form"
-import { z } from "zod"
 import { HomeFormContext } from "."
 import { useContext } from "react"
 import { setLinks } from "@/app/(client)/_store/links"
+import { LinksSchema } from "@/app/_server/trpc/routers/links/schema"
 
 
 export const useHomeFormContext = () => useContext(HomeFormContext)
-
-export const homeFormSchema = z.object({
-  links: z.array(z.object({
-    platform: z
-      .enum(["", "github", "youtube", "linkedin", "facebook", "frontendmentor", "hashnode", "web", "twitter", "twitch", "devto", "codewars", "freecodecamp", "gitlab", "stackoverflow"]),
-    url: z
-      .string()
-      .url("Please check the url")
-  }))
-})
-
-export type HomeFormSchema = z.TypeOf<typeof homeFormSchema>
 
 export const useHomeForm = () =>{
   const context = useHomeFormContext()
@@ -46,7 +34,7 @@ export const useHomeForm = () =>{
 
   const handleRemoveLink = (index: number) => remove(index)
 
-  const handleFormSubmit: SubmitHandler<HomeFormSchema> = data => {
+  const handleFormSubmit: SubmitHandler<LinksSchema> = data => {
     if ( fields.length===0 ) return
 
     setLinks(data.links)
