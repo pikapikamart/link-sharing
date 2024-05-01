@@ -1,4 +1,5 @@
-export * from "./users"
+export * from "./user"
+export * from "./link"
 // export * from "./accounts"
 // export * from "./sessions"
 // export * from "./verificationTokens"

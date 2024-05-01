@@ -1,6 +1,6 @@
 import { db } from "@/app/_server/database";
 import { RegisterSchema } from "../../routers/auth/schema";
-import { users } from "@/app/_server/database/schema";
+import { user } from "@/app/_server/database/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt"
 import { 
@@ -9,15 +9,15 @@ import {
 
 
 export const registerHandler = async(input: RegisterSchema) =>{
-  const existingUser = await db.query.users.findFirst({
-    where: eq(users.email, input.email)
+  const existingUser = await db.query.user.findFirst({
+    where: eq(user.email, input.email)
   })
   
   if ( !existingUser ) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(input.password, salt);
 
-    await db.insert(users).values({
+    await db.insert(user).values({
       email: input.email,
       password: hash
     })
@@ -29,8 +29,8 @@ export const registerHandler = async(input: RegisterSchema) =>{
 }
 
 export const validateHandler = async(input: RegisterSchema) =>{
-  const foundUser = await db.query.users.findFirst({
-    where: eq(users.email, input.email)
+  const foundUser = await db.query.user.findFirst({
+    where: eq(user.email, input.email)
   })
   
   if ( !foundUser ) {

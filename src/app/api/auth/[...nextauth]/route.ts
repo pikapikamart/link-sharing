@@ -3,7 +3,7 @@ import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
 import { db } from "@/app/_server/database";
 import { eq } from "drizzle-orm";
-import { users } from "@/app/_server/database/schema";
+import { user } from "@/app/_server/database/schema";
 import bcrypt from "bcrypt"
 
 
@@ -29,8 +29,8 @@ export const nextAuthOptions: NextAuthOptions = {
 
         const { email, password } = credentials
         
-        const foundUser = await db.query.users.findFirst({
-          where: eq(users.email, email)
+        const foundUser = await db.query.user.findFirst({
+          where: eq(user.email, email)
         })
 
         if ( !foundUser || ( foundUser && await bcrypt.compare(foundUser.password, password) ) ) {
@@ -38,13 +38,13 @@ export const nextAuthOptions: NextAuthOptions = {
           return Promise.reject(new Error("Authentication failed. Invalid credentials"))
         }
         
-        const user = {
+        const authUser = {
           email: foundUser.email,
           id: `${ foundUser.id }`,
           name: ""
         }
 
-        return user
+        return authUser
       }
     })
   ],
