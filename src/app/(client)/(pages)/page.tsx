@@ -2,9 +2,11 @@
 import { Header } from "../_components/layout/header"
 import { HomeForm } from "../_components/page/home/form"
 import { HomePreview } from "../_components/page/home/preview"
+import { useQueryAndSetLinks } from "../_store/links/hook"
 
 
 const Page = () =>{
+  useQueryAndSetLinks()
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { 
   Link, 
   isLink, 
-  useLinkStore } from "@/app/(client)/_store/links"
+  useLinksStore } from "@/app/(client)/_store/links"
 import { PhoneFrameVector } from "../../../svgs/phoneFrame"
 import { GithubIcon } from "../../../svgs/github"
 import { YoutubeIcon } from "../../../svgs/youtube"
@@ -20,7 +20,7 @@ import { ArrowRightIcon } from "../../../svgs/arrowRight"
 
 
 const Preview = () =>{
-  const { links } = useLinkStore()
+  const { links } = useLinksStore()
 
   const buildPreviewItemData = (item: Link) =>{
     switch(item.platform) {

@@ -1,7 +1,7 @@
 import { SubmitHandler } from "react-hook-form"
 import { HomeFormContext } from "."
 import { useContext } from "react"
-import { Platform, setLinks } from "@/app/(client)/_store/links"
+import { setLinks } from "@/app/(client)/_store/links"
 import { LinksSchema } from "@/app/_server/trpc/routers/links/schema"
 import { trpc } from "@/app/(client)/_lib/trpc"
 import { platforms } from "@/app/_server/database/schema"
@@ -27,7 +27,7 @@ export const useHomeForm = () =>{
     formState: {
       errors: formErrors
     } } = context.methods
-  
+
   const handleAddNewLink = () =>{
     const foundAvailablePlatform = platforms.find(platform => watch("links").every(field => field.platform!==platform))
 

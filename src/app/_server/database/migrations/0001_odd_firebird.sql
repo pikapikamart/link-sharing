@@ -1,0 +1,2 @@
+ALTER TABLE `link` MODIFY COLUMN `platform` enum('github','youtube','linkedin','facebook','frontendmentor','hashnode','twitter','twitch','devto','codewars','freecodecamp','gitlab','stackoverflow');--> statement-breakpoint
+ALTER TABLE `user` ADD `firstName` varchar(255);

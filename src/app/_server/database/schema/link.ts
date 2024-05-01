@@ -27,7 +27,7 @@ export const link = mysqlTable("link", {
   id: int("id")
     .autoincrement()
     .primaryKey(),
-  platform: mysqlEnum("platform", platforms),
+  platform: mysqlEnum("platform", platforms).notNull(),
   url: varchar("url", { length: 255 }).notNull(),
   userId: int("user_id")
     .notNull()

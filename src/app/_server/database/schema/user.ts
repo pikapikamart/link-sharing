@@ -12,6 +12,8 @@ export const user = mysqlTable("user", {
     .primaryKey(),
   email: varchar("email", { length: 255 }).notNull(),
   password: varchar("password", { length: 255 }).notNull(),
+  firstName: varchar("firstName", { length: 255 }),
+  lastName: varchar("lastName", { length: 255 })
 })
 
 export const userRelations = relations(user, ({ one, many }) => ({

@@ -4,11 +4,12 @@ import {
   useFieldArray, 
   useForm } from "react-hook-form"
 import Form from "./form"
-import { createContext } from "react"
+import { createContext, useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { 
   LinksSchema, 
   linksSchema } from "@/app/_server/trpc/routers/links/schema"
+import { useLinksStore } from "@/app/(client)/_store/links"
 
 
 type HomeFormContextProps = {
@@ -19,6 +20,7 @@ type HomeFormContextProps = {
 export const HomeFormContext = createContext<HomeFormContextProps | null>(null)
 
 const HomeForm = () =>{
+  const { links } = useLinksStore()
   const methods = useForm<LinksSchema>({
     resolver: zodResolver(linksSchema)
   })
@@ -30,6 +32,14 @@ const HomeForm = () =>{
     methods,
     fields
   }
+
+  useEffect(() =>{
+    if ( links.length ) {
+      methods.reset({
+        links
+      })
+    }
+  }, [links])
 
   return (
     <HomeFormContext.Provider value={ value } >

@@ -1,9 +1,17 @@
 import { db } from "@/app/_server/database";
 import { Context } from "../../context";
 import { LinksSchema } from "../../routers/links/schema";
-import { SQL, eq, inArray, sql } from "drizzle-orm";
-import { link, user } from "@/app/_server/database/schema";
-import { trpcError } from "../../utils";
+import { 
+  SQL, 
+  eq, 
+  inArray, 
+  sql } from "drizzle-orm";
+import { 
+  link, 
+  user } from "@/app/_server/database/schema";
+import { 
+  trpcError, 
+  trpcSuccess } from "../../utils";
 
 
 export const setHandler = async(input: LinksSchema, ctx: Context) =>{
@@ -16,7 +24,7 @@ export const setHandler = async(input: LinksSchema, ctx: Context) =>{
 
   if ( !foundUser ) {
 
-    return trpcError("NOT_FOUND", "No user logged in")
+    return trpcError("FORBIDDEN", "Make sure to login first")
   }
 
   const links = foundUser.links
@@ -59,13 +67,43 @@ export const setHandler = async(input: LinksSchema, ctx: Context) =>{
   }
 
   const newLinks = input.links
-    .filter(inputLink => links.find(innerLink => innerLink.platform!==inputLink.platform))
+    .filter(inputLink => links.every(innerLink => innerLink.platform!==inputLink.platform))
     .map(newLink => ({
       ...newLink,
       userId: foundUser.id
     }))
+  
+  if ( newLinks.length ) {
+    
+    await db
+      .insert(link)
+      .values(newLinks)
+  }
 
-  await db
-    .insert(link)
-    .values(newLinks)
+  return trpcSuccess("Successfully set links", {})
+}
+
+export const getHandler = async( ctx: Context ) =>{
+  const foundUser = await db.query.user.findFirst({
+    where: eq(user.email, ctx.token?.email as string),
+    columns: {
+      password: false
+    },
+    with: {
+      links: {
+        columns: {
+          userId: false
+        }
+      }
+    }
+  })
+
+  if ( !foundUser ) {
+
+    return trpcError("UNAUTHORIZED", "Make sure to login first")
+  }
+
+  const links = foundUser.links
+
+  return trpcSuccess("Success", links)
 }

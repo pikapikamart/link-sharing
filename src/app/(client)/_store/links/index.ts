@@ -1,9 +1,9 @@
 import { create } from "zustand"
 import { createSelectors } from "../"
-import { platforms } from "@/app/_server/database/schema";
+import { platforms } from "@/app/_server/database/schema"
 import { 
   GetElementType, 
-  MakeWritable } from "../../../../../types/utils";
+  MakeWritable } from "../../../../../types/utils"
 
 
 export type Platform = GetElementType<MakeWritable<typeof platforms>>
@@ -15,6 +15,7 @@ export const isLink = (link: (Link | "")): link is Link =>{
 export type Link = {
   platform: Platform
   url: string
+  id?: number
 }
 
 export type LinkState = {
@@ -25,8 +26,8 @@ export const useLinksStoreBase = create<LinkState>(() => ({
   links: []
 })) 
 
-export const setLinks = (links: Link[]) => useLinksStoreBase.setState(state => ({
+export const setLinks = (links: Link[]) => useLinksStoreBase.setState(() => ({
   links
 }))
 
-export const useLinkStore = createSelectors(useLinksStoreBase)
+export const useLinksStore = createSelectors(useLinksStoreBase)
