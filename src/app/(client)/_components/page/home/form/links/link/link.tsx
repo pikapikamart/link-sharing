@@ -28,7 +28,7 @@ const Link = ({ index }: LinkProps) =>{
       <div className="flex justify-between items-center mb-3">
         <div className="flex items-center">
           <button 
-            className="DragHandle h-6 w-6 grid place-content-center"
+            className="DragHandle h-6 w-6 grid place-content-center touch-none lg:touch-auto"
             {...attributes}
             {...listeners}
             type="button"

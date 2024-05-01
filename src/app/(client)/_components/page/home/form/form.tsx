@@ -16,7 +16,7 @@ const Form = () =>{
         <p className=" text-grey">Add/edit/remove links below and then share all your profiles with the world!</p>
       </div>
       <form
-        className=" lg:max-h-[540px] lg:overflow-y-auto"
+        className="grid grid-rows-[auto,1fr,auto] min-h-[540px] lg:max-h-[540px] lg:block lg:overflow-y-auto"
         onSubmit={ handleSubmit }>
         <div className="px-6 md:px-10">
           <button
@@ -41,7 +41,7 @@ const Form = () =>{
           ) }
           { fields?.length!==0 && <FormLinks /> }
         </div>
-        <div className="border-t border-t-borders p-4 w-full absolute bottom-0 lg:py-6 lg:px-10">
+        <div className="border-t border-t-borders p-4 w-full bottom-0 lg:absolute lg:py-6 lg:px-10">
           <button
             className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 ${ fields?.length===0 && "active:aria-disabled:bg-purple active:aria-disabled:bg-opacity-25" }`}
             type="submit"
