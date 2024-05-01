@@ -6,11 +6,19 @@ import { LinkedinIcon } from "@/app/(client)/_components/svgs/linkedin";
 import { FacebookIcon } from "@/app/(client)/_components/svgs/facebook";
 import { FrontendmentorIcon } from "@/app/(client)/_components/svgs/frontendmentor";
 import { HashnodeIcon } from "@/app/(client)/_components/svgs/hashnode";
+import { Platform } from "@/app/(client)/_store/links";
+import { CodewarsIcon } from "@/app/(client)/_components/svgs/codewars";
+import { DevtoIcon } from "@/app/(client)/_components/svgs/devto";
+import { FreecodecampIcon } from "@/app/(client)/_components/svgs/freecodecamp";
+import { GitlabIcon } from "@/app/(client)/_components/svgs/gitlab";
+import { StackoverflowIcon } from "@/app/(client)/_components/svgs/stackoverflow";
+import { TwitchIcon } from "@/app/(client)/_components/svgs/twitch";
+import { TwitterIcon } from "@/app/(client)/_components/svgs/twitter";
 
 
 type SelectProps = {
-  setValue: (value: string) => void
-  value: string
+  setValue: (value: Platform) => void
+  value: Platform
   index: number
   error?: string
 }
@@ -23,7 +31,7 @@ const Select = (props: SelectProps) =>{
     error } = props
   const hasError = value==="" && (error && error !== "")
 
-  const renderPlatform = (platform?: string) =>{
+  const renderPlatform = (platform?: Platform) =>{
 
     switch(platform ?? value) {
       case "github":
@@ -74,6 +82,62 @@ const Select = (props: SelectProps) =>{
             <p className="ml-3 text-dark-grey">Hashnode</p>
           </div>
         )
+      case "codewars":
+
+        return (
+          <div className="flex items-center text-grey">
+            <CodewarsIcon />
+            <p className="ml-3 text-dark-grey">Codewars</p>
+          </div>
+        )
+      case "devto":
+
+        return (
+          <div className="flex items-center text-grey">
+            <DevtoIcon />
+            <p className="ml-3 text-dark-grey">Dev.to</p>
+          </div>
+        )
+      case "freecodecamp":
+
+        return (
+          <div className="flex items-center text-grey">
+            <FreecodecampIcon />
+            <p className="ml-3 text-dark-grey">freeCodeCamp</p>
+          </div>
+        )
+      case "gitlab":
+
+        return (
+          <div className="flex items-center text-grey">
+            <GitlabIcon />
+            <p className="ml-3 text-dark-grey">Gitlab</p>
+          </div>
+        )
+      case "stackoverflow":
+
+        return (
+          <div className="flex items-center text-grey">
+            <StackoverflowIcon />
+            <p className="ml-3 text-dark-grey">Stack Overflow</p>
+          </div>
+        )
+      case "twitch":
+
+        return (
+          <div className="flex items-center text-grey">
+            <TwitchIcon />
+            <p className="ml-3 text-dark-grey">Twitch</p>
+          </div>
+        )
+      case "twitter":
+
+        return (
+          <div className="flex items-center text-grey">
+            <TwitterIcon />
+            <p className="ml-3 text-dark-grey">Twitter</p>
+          </div>
+        )
       default:
         return <></>
     }
@@ -98,6 +162,13 @@ const Select = (props: SelectProps) =>{
           <Ariakit.SelectItem className="select-item" value="facebook">{ renderPlatform("facebook") }</Ariakit.SelectItem>
           <Ariakit.SelectItem className="select-item" value="frontendmentor">{ renderPlatform("frontendmentor") }</Ariakit.SelectItem>
           <Ariakit.SelectItem className="select-item" value="hashnode">{ renderPlatform("hashnode") }</Ariakit.SelectItem>
+          <Ariakit.SelectItem className="select-item" value="codewars">{ renderPlatform("codewars") }</Ariakit.SelectItem>
+          <Ariakit.SelectItem className="select-item" value="devto">{ renderPlatform("devto") }</Ariakit.SelectItem>
+          <Ariakit.SelectItem className="select-item" value="freecodecamp">{ renderPlatform("freecodecamp") }</Ariakit.SelectItem>
+          <Ariakit.SelectItem className="select-item" value="gitlab">{ renderPlatform("gitlab") }</Ariakit.SelectItem>
+          <Ariakit.SelectItem className="select-item" value="stackoverflow">{ renderPlatform("stackoverflow") }</Ariakit.SelectItem>
+          <Ariakit.SelectItem className="select-item" value="twitch">{ renderPlatform("twitch") }</Ariakit.SelectItem>
+          <Ariakit.SelectItem className="select-item" value="twitter">{ renderPlatform("twitter") }</Ariakit.SelectItem>
         </Ariakit.SelectPopover>
       </Ariakit.SelectProvider>
       { hasError && (

@@ -2,8 +2,14 @@ import { create } from "zustand"
 import { createSelectors } from "../"
 
 
-type Link = {
-  platform: "github" | "youtube" | "linkedin" | "facebook" | "frontendmentor" | "hashnode" | "web"
+export type Platform = "" | "github" | "youtube" | "linkedin" | "facebook" | "frontendmentor" | "hashnode" | "web" | "twitter" | "twitch" | "devto" | "codewars" | "freecodecamp" | "gitlab" | "stackoverflow"
+ 
+export const isLink = (link: (Link | "")): link is Link =>{
+  return (link as Link).platform !== undefined
+}
+
+export type Link = {
+  platform: Platform
   url: string
 }
 
@@ -15,27 +21,8 @@ export const useLinksStoreBase = create<LinkState>(() => ({
   links: []
 })) 
 
-export const updateLink = ( updatedLink: Link) => useLinksStoreBase.setState(state => ({
-  links: state.links.map(link => link.platform===updatedLink.platform? {
-    ...link,
-    ...updatedLink
-  } : link)
-}))
-
-export const addLink = ( link: Link ) => useLinksStoreBase.setState(state => ({
-  links: state.links.concat(link)
-}))
-
-export const moveLink = (activeIndex: number, overIndex: number) => useLinksStoreBase.setState(state => ({
-  links: [
-    ...state.links.slice(0, activeIndex),
-    ...state.links.slice(activeIndex+1, overIndex),
-    state.links.find((link, index) => index===activeIndex) as Link
-  ]
-}))
-
-export const removeLink = (removedLink: Link) => useLinksStoreBase.setState(state => ({
-  links: state.links.filter(link => link.platform!!+=removedLink.platform)
+export const setLinks = (links: Link[]) => useLinksStoreBase.setState(state => ({
+  links
 }))
 
 export const useLinkStore = createSelectors(useLinksStoreBase)

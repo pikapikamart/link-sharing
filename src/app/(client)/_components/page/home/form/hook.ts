@@ -2,6 +2,7 @@ import { SubmitHandler } from "react-hook-form"
 import { z } from "zod"
 import { HomeFormContext } from "."
 import { useContext } from "react"
+import { setLinks } from "@/app/(client)/_store/links"
 
 
 export const useHomeFormContext = () => useContext(HomeFormContext)
@@ -9,8 +10,7 @@ export const useHomeFormContext = () => useContext(HomeFormContext)
 export const homeFormSchema = z.object({
   links: z.array(z.object({
     platform: z
-      .string({ message: "Make sure to choose a platform" })
-      .min(1, "Make sure to choose a platform"),
+      .enum(["", "github", "youtube", "linkedin", "facebook", "frontendmentor", "hashnode", "web", "twitter", "twitch", "devto", "codewars", "freecodecamp", "gitlab", "stackoverflow"]),
     url: z
       .string()
       .url("Please check the url")
@@ -49,7 +49,7 @@ export const useHomeForm = () =>{
   const handleFormSubmit: SubmitHandler<HomeFormSchema> = data => {
     if ( fields.length===0 ) return
 
-    console.log(data)
+    setLinks(data.links)
   }
 
   return {

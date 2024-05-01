@@ -1,7 +1,55 @@
+import { 
+  Link, 
+  isLink, 
+  useLinkStore } from "@/app/(client)/_store/links"
 import { PhoneFrameVector } from "../../../svgs/phoneFrame"
+import { GithubIcon } from "../../../svgs/github"
+import { YoutubeIcon } from "../../../svgs/youtube"
+import { LinkedinIcon } from "../../../svgs/linkedin"
 
 
 const Preview = () =>{
+  const { links } = useLinkStore()
+
+  const buildPreviewItemData = (item: Link) =>{
+    switch(item.platform) {
+      case "github":
+        return {
+          label: "Github",
+          backgroundColor: "#1A1A1A",
+          icon: () => <GithubIcon />
+        }
+      case "youtube":
+        return {
+          label: "Youtube",
+          backgroundColor: "#EE3939",
+          icon: () => <YoutubeIcon />
+        }
+      case "linkedin":
+        return {
+          label: "Linkedin",
+          backgroundColor: "#2D68FF",
+          icon: () => <LinkedinIcon />
+        }
+    }
+  }
+  
+  const renderItem = () =>{
+    const mappedItems = Array(links.length<=5? 5 : links.length)
+      .fill("")
+      .map((item, index) => links[index]? links[index] : item)
+      .map((item: (Link | ""), index) => (
+        <li
+          key={`preview-${ index }-${ isLink(item)? item.platform : "" }`} 
+          className="bg-[#EEEEEE] h-11 rounded-lg mb-5"
+          style={{
+            backgroundColor: isLink(item)? "" : ""
+          }}>
+
+        </li>
+      ))
+
+  }
 
   return (
     <div className="hidden bg-white rounded-lg relative lg:flex lg:items-center lg:justify-center">
