@@ -2,6 +2,7 @@ import { useLinksStore } from "@/app/(client)/_store/links"
 import { StartedVector } from "../../../svgs/started"
 import { useHomeForm } from "./hook"
 import { FormLinks } from "./links"
+import { motion } from "framer-motion"
 
 
 const Form = () =>{
@@ -19,7 +20,7 @@ const Form = () =>{
       </div>
       <div className="px-6 md:px-10">
         <button
-          className="w-full font-semibold text-purple border border-purple h-[46px] flex items-center justify-center rounded-lg active:bg-light-purple" 
+          className="w-full font-semibold text-purple border border-purple h-[46px] flex items-center justify-center rounded-lg lg:hover:bg-light-purple lg:transition-all" 
           type="button"
           onClick={ handleAddNewLink } >+ Add new link
         </button>
@@ -45,7 +46,7 @@ const Form = () =>{
         </div>
         <div className="border-t border-t-borders p-4 w-full bottom-0 lg:absolute lg:py-6 lg:px-10">
           <button
-            className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 ${ fields?.length===0 && "active:aria-disabled:bg-purple active:aria-disabled:bg-opacity-25" }`}
+            className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 lg:hover:bg-purple-hover lg:transition-all ${ fields?.length===0 && "active:aria-disabled:bg-purple active:aria-disabled:bg-opacity-25" }`}
             type="submit"
             aria-disabled={ links.length===0 && fields?.length===0 }>Save
           </button>

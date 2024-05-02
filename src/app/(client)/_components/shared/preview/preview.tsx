@@ -1,6 +1,5 @@
 import { 
   Link, 
-  isLink, 
   useLinksStore } from "@/app/(client)/_store/links"
 import { GithubIcon } from "../../svgs/github"
 import { YoutubeIcon } from "../../svgs/youtube"
@@ -16,8 +15,12 @@ import { GitlabIcon } from "../../svgs/gitlab"
 import { HashnodeIcon } from "../../svgs/hashnode"
 import { StackoverflowIcon } from "../../svgs/stackoverflow"
 import { ArrowRightIcon } from "../../svgs/arrowRight"
-import { PhoneFrameVector } from "../../svgs/phoneFrame"
 import { useUserStore } from "@/app/(client)/_store/user"
+import { 
+  motion,
+  AnimatePresence } from "framer-motion"
+import { PhoneFrameVector } from "../../svgs/phoneFrame"
+import { swiperVariant } from "@/app/(client)/_motion/variants"
 
 
 const Preview = () =>{
@@ -107,47 +110,62 @@ const Preview = () =>{
         }
     }
   }
-  
-  const renderItems = () =>{
-    const mappedItems = Array(links.length<=5? 5 : links.length)
+
+  const renderItemBackgrounds = () =>{
+    const mappedBackground = Array(5)
       .fill("")
-      .map((item, index) => links[index]? links[index] : item)
-      .map((item: (Link | ""), index) => (
-        <li
-          key={`preview-${ index }-${ isLink(item)? item.platform : "" }`} 
-          className="bg-[#EEEEEE] h-11 rounded-lg mb-5 flex items-center px-4"
-          style={{
-            backgroundColor: isLink(item)? buildPreviewItemData(item)?.backgroundColor : "",
-            border: isLink(item)? buildPreviewItemData(item)?.backgroundColor==="#FFFFFF"? "1px solid #D9D9D9" : "" : ""
-          }}>
-          { isLink(item) && (
-            <>
-              <div 
-                className="mr-2"
-                style={{
-                  color: buildPreviewItemData(item)?.color?? "white"
-                }}>
-                  { buildPreviewItemData(item)?.icon() }
-              </div>
-              <p style={{
-                color: buildPreviewItemData(item)?.color?? "white"
-              }}>{ buildPreviewItemData(item)?.label }
-            </p>
-            <a 
-              className="block ml-auto"
-              style={{
-                color: buildPreviewItemData(item)?.color?? "white"
-              }}
-              href={ item.url }
-              target="_blank">
-              <ArrowRightIcon />
-            </a>
-            </>
-          ) }
-        </li>
+      .map((_, index) => (
+        <div 
+          key={ `background-${ index }` }
+          className="bg-[#EEEEEE] h-11 mb-5 rounded-lg" />
       ))
 
-      return mappedItems
+    return mappedBackground
+  }
+  
+  const renderItems = () =>{
+    const mappedItems = links.map((item, index) => {
+      const previewItem = buildPreviewItemData(item)
+    
+      return (
+        <motion.li
+          key={`preview-${ index }-${ item.platform }`} 
+          className="h-11 rounded-lg mb-5 flex items-center px-4 relative"
+          style={{
+            backgroundColor: previewItem.backgroundColor,
+            border: previewItem.backgroundColor==="#FFFFFF"? "1px solid #D9D9D9" : ""
+          }}
+          variants={ swiperVariant }
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{
+            duration: .3,
+            delay: index * .3
+          }}>
+          <>
+            <div 
+              className="mr-2"
+              style={{ color: previewItem.color?? "white" }}>{ previewItem.icon() }
+            </div>
+            <p style={{ color: previewItem.color?? "white"}}>{ previewItem.label }</p>
+            <a 
+              className="block ml-auto group
+              after:absolute after:inset-0"
+              style={{ color: previewItem.color?? "white"}}
+              href={ item.url }
+              target="_blank">
+              <span className="sr-only">{ previewItem.label }</span>
+              <div className=" group-hover:translate-x-2 transition-transform">
+                <ArrowRightIcon />
+              </div>
+            </a>
+          </>
+        </motion.li>
+      )
+    })
+
+    return mappedItems
   }
 
   return (
@@ -168,9 +186,14 @@ const Preview = () =>{
               <div className="bg-[#EEEEEE] w-[72px] h-2 rounded-2xl"></div>
             }
           </div>
-          <ul className=" max-h-[300px] overflow-y-auto no-scrollbar">
-            { renderItems() }
-          </ul>
+          <div className="relative">
+            <div className={`transition-opacity ${ links.length >=5? "opacity-0" : "" }`}>
+              { renderItemBackgrounds() }
+            </div>
+            <ul className="absolute top-0 right-0 left-0 max-h-[300px] overflow-y-auto no-scrollbar">
+              { renderItems() }
+            </ul>
+          </div>
         </div>
       </div>
     </div>
