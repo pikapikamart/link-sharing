@@ -50,6 +50,13 @@
       "when": 1714557404441,
       "tag": "0006_bright_master_mold",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1714632731553,
+      "tag": "0007_happy_sunspot",
+      "breakpoints": true
     }
   ]
 }

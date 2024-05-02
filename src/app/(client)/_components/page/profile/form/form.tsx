@@ -47,7 +47,8 @@ const Form = () =>{
               <ProfileTextInput
                 label="Email"
                 attributes={{
-                  id: "profileEmail"
+                  id: "profileEmail",
+                  readOnly: true
                 }}
                 placeHolder="e.g john.doe@example.com"
                 {...register("email")}

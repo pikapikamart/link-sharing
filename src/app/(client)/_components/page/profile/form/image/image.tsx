@@ -29,7 +29,7 @@ const Image = () =>{
                   type="file" 
                   onChange={event => event.target.files?.[0] && onChange(event.target.files[0])}
                   accept=".png, .jpg, .jpeg"
-                  aria-labelledby={`error-profileImage`} />
+                  aria-labelledby={formErrors.image?.message!==undefined? "error-profileImage" : ""} />
               )}>
             </Controller>
             { isImageValid && (
