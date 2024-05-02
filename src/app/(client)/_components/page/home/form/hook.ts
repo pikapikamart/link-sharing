@@ -52,8 +52,23 @@ export const useHomeForm = () =>{
     if ( links.length===0 && fields.length===0 ) return
 
     if ( isPending ) return
-    
-    mutate(data)  
+
+    const checkForAnyValueChange = () =>{
+
+      for ( let i = 0; i<links.length; i++ ) {
+
+        for ( const [k,v] of Object.entries(data.links[i]) ) {
+          if ( v !== links[i][k]) {
+
+            return true
+          }
+        }
+      }
+    }
+
+    if ( links.length!==data.links.length || checkForAnyValueChange() ) {
+      mutate(data)  
+    }
   }
 
   return {

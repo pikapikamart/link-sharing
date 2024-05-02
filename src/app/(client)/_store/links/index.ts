@@ -7,15 +7,12 @@ import {
 
 
 export type Platform = GetElementType<MakeWritable<typeof platforms>>
- 
-export const isLink = (link: (Link | "")): link is Link =>{
-  return (link as Link).platform !== undefined
-}
 
 export type Link = {
   platform: Platform
   url: string
-  id?: number
+  id?: number,
+  [ key: string ] : any
 }
 
 export type LinkState = {

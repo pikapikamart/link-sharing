@@ -6,6 +6,8 @@ import Link, { LinkProps } from "./link"
 import { DraggableSyntheticListeners } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { motion } from "framer-motion"
+import { fadeVariant } from "@/app/(client)/_motion/variants";
 
 
 type FormLinkProps = {
@@ -51,12 +53,15 @@ const FormLink = (props: FormLinkProps) =>{
 
   return (
     <SortableItemContext.Provider value={ context }>
-      <div 
+      <motion.div 
+        initial="initial"
+        animate="animate"
+        variants={ fadeVariant }
         className="SortableItem"
         ref={ setNodeRef }
         style={ style }>
         <Link index={ index } />
-      </div>
+      </motion.div>
     </SortableItemContext.Provider>
   )
 }

@@ -1,5 +1,4 @@
 import { 
-  Active,
   DndContext, 
   KeyboardSensor, 
   PointerSensor, 
@@ -8,8 +7,9 @@ import {
 import { 
   SortableContext, 
   sortableKeyboardCoordinates } from "@dnd-kit/sortable"
-import { useState } from "react"
-import { useHomeForm, useHomeFormContext } from "../hook"
+import { 
+  useHomeForm, 
+  useHomeFormContext } from "../hook"
 import { FormLink } from "./link"
 
 
@@ -20,7 +20,6 @@ const Links = () =>{
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
-  const [active, setActive] = useState<null | Active>(null)
   const { fields } = useHomeForm()
   const context = useHomeFormContext()
 
@@ -38,9 +37,6 @@ const Links = () =>{
   return (
     <DndContext
       sensors={sensors}
-      onDragStart={({ active }) => {
-        setActive(active)
-      }}
       onDragEnd={({ active, over }) => {
         if (over && active.id !== over?.id) {
           const activeIndex = fields?.findIndex(({ id }) => id === active.id)
@@ -50,10 +46,6 @@ const Links = () =>{
  
           context?.fields.move(activeIndex, overIndex)
         }
-        setActive(null)
-      }}
-      onDragCancel={() => {
-        setActive(null)
       }}>
       <SortableContext items={ fields?? [] }>
         <div>
