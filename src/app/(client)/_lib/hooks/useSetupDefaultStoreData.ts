@@ -17,15 +17,15 @@ export const useSetupDefaultStoreData = () =>{
 
   useEffect(() =>{
     if ( !query.isSuccess ) return
-    const { links, ...restUser } = query.data.data
-
+    const { links: userLinks, ...restUser } = query.data.data
+   
     if ( !links.length ) {
-      setLinks(links)
+      setLinks(userLinks)
     }
 
     if ( !user.email ) {
       setUser(restUser)
     }
 
-  }, [links, user, query.isSuccess])
+  }, [query.isSuccess])
 }

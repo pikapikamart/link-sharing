@@ -1,7 +1,7 @@
 import { SubmitHandler } from "react-hook-form"
 import { HomeFormContext } from "."
 import { useContext } from "react"
-import { setLinks } from "@/app/(client)/_store/links"
+import { setLinks, useLinksStore } from "@/app/(client)/_store/links"
 import { LinksSchema } from "@/app/_server/trpc/routers/links/schema"
 import { trpc } from "@/app/(client)/_lib/trpc"
 import { platforms } from "@/app/_server/database/schema"
@@ -18,6 +18,7 @@ export const useHomeForm = () =>{
       setLinks(data.data.links)
     }
   })
+  const { links } = useLinksStore()
 
   if ( !context ) return {}
 
@@ -48,7 +49,7 @@ export const useHomeForm = () =>{
   const handleRemoveLink = (index: number) => remove(index)
 
   const handleFormSubmit: SubmitHandler<LinksSchema> = data => {
-    if ( fields.length===0 ) return
+    if ( links.length===0 && fields.length===0 ) return
 
     if ( isPending ) return
     

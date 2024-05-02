@@ -1,3 +1,4 @@
+import { useLinksStore } from "@/app/(client)/_store/links"
 import { StartedVector } from "../../../svgs/started"
 import { useHomeForm } from "./hook"
 import { FormLinks } from "./links"
@@ -8,6 +9,7 @@ const Form = () =>{
     handleSubmit, 
     handleAddNewLink, 
     fields } = useHomeForm()
+  const { links } = useLinksStore()
 
   return (
     <div className="bg-white rounded-lg pt-6 max-w-[808px] relative min-h-[calc(100vh-90px)] md:pt-10">
@@ -45,7 +47,7 @@ const Form = () =>{
           <button
             className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 ${ fields?.length===0 && "active:aria-disabled:bg-purple active:aria-disabled:bg-opacity-25" }`}
             type="submit"
-            aria-disabled={ fields?.length===0 }>Save
+            aria-disabled={ links.length===0 && fields?.length===0 }>Save
           </button>
         </div>
       </form>
