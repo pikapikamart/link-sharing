@@ -1,17 +1,17 @@
 import { useEffect } from "react"
 import { trpc } from "../../_lib/trpc"
-import { setLinks } from "."
+import { setUser } from "."
 
 
-export const useQueryAndSetLinks = () => {
-  const query = trpc.links.get.useQuery(undefined, {
+export const useQueryAndSetUser = () => {
+  const query = trpc.user.profile.useQuery(undefined, {
     refetchOnMount: false,
     refetchOnWindowFocus: false
   })
 
   useEffect(() =>{
     if ( query.isSuccess ) {
-      setLinks(query.data.data)  
+      // setUser(query.data.data)
     }
   }, [ query.isSuccess ])
 }

@@ -16,7 +16,7 @@ export const useProfileForm = () =>{
     control,
     watch } = useFormContext<ProfileSchema>()
   const { data: session } = useSession()
-  console.log(formErrors)
+
   const handleFormSubmit: SubmitHandler<ProfileSchema> = async(data) => {
     if ( !session?.user ) return
 

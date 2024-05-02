@@ -12,7 +12,8 @@ export const profileHandler = async(ctx: Context) =>{
   const foundUser = await db.query.user.findFirst({
     where: eq(user.email, ctx.token?.email as string),
     columns: {
-      password: false
+      password: false,
+      id: false
     },
     with: {
       links: true
@@ -29,5 +30,5 @@ export const profileHandler = async(ctx: Context) =>{
 
 export const updateHandler = async(input: ProfileSchema, ctx: Context) =>{
 
-  console.log(input)
+
 }

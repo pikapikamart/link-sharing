@@ -32,7 +32,7 @@ const Provider = ({ children }: ProviderProps) => {
   )
 
   return (
-    <SessionProvider>
+    <SessionProvider refetchOnWindowFocus={ false }>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           { children }

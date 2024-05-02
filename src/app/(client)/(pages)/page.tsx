@@ -1,12 +1,12 @@
 "use client"
 import { Header } from "../_components/layout/header"
 import { HomeForm } from "../_components/page/home/form"
-import { useQueryAndSetLinks } from "../_store/links/hook"
+import { useSetupDefaultStoreData } from "../_lib/hooks/useSetupDefaultStoreData"
 import { Preview } from "@/app/(client)/_components/shared/preview"
 
 
 const Page = () =>{
-  useQueryAndSetLinks()
+  useSetupDefaultStoreData()
 
   return (
     <>

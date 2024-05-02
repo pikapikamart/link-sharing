@@ -14,13 +14,11 @@ const ProfileForm = () => {
   const methods = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema)
   })
-  const { data} = useSession()
-  
+  const { data } = useSession()
+
   useEffect(() =>{
     if ( data?.user?.email ) {
-      methods.reset({
-        email: data.user.email
-      })
+      methods.setValue("email", data.user.email)
     }
   }, [ data ])
 
