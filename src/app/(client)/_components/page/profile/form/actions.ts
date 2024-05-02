@@ -4,6 +4,8 @@ import { user } from "@/app/_server/database/schema"
 import { profileSchema } from "@/app/_server/trpc/routers/user/schema"
 import { eq } from "drizzle-orm"
 import { Session } from "next-auth"
+import cloudinary from "@/app/_server/utils/cloudinary"
+import { File } from "buffer"
 
 
 export const updateProfile = async(userSession: Session, form: FormData) =>{
@@ -42,10 +44,41 @@ export const updateProfile = async(userSession: Session, form: FormData) =>{
       data: "user:Login first"
     }
   }
+
+  let userImage: null | string = null
+
+  if ( foundUser.image===null ) {
+    const createImage = async (img: File) => {
+      const arrayBuffer = await img.arrayBuffer()
+      const buffer = new Uint8Array(arrayBuffer)
+      const result = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader.upload_stream({
+          folder: "link-sharing",
+          upload_preset: "link-sharing"
+        }, (error, result) => {
+          if ( error ) {
+
+            return reject(error)
+          }
+
+          return resolve(result?.url)
+        },).end(buffer)
+
+      })
+      
+      if ( typeof result === "string" ) {
+        userImage = result
+      }
+    }
+
+    await createImage(validatedFields.data.image)
+  }
+
   
   await db.update(user).set({
     firstName: validatedFields.data.firstname,
-    lastName: validatedFields.data.lastname
+    lastName: validatedFields.data.lastname,
+    image: userImage
   }).where(eq(user.id, foundUser.id))
 
   return {
