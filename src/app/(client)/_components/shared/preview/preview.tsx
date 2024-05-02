@@ -2,24 +2,26 @@ import {
   Link, 
   isLink, 
   useLinksStore } from "@/app/(client)/_store/links"
-import { PhoneFrameVector } from "../../../svgs/phoneFrame"
-import { GithubIcon } from "../../../svgs/github"
-import { YoutubeIcon } from "../../../svgs/youtube"
-import { LinkedinIcon } from "../../../svgs/linkedin"
-import { FrontendmentorOriginalIcon } from "../../../svgs/frontendmentorOriginal"
-import { TwitterIcon } from "../../../svgs/twitter"
-import { FacebookIcon } from "../../../svgs/facebook"
-import { TwitchIcon } from "../../../svgs/twitch"
-import { DevtoIcon } from "../../../svgs/devto"
-import { CodewarsIcon } from "../../../svgs/codewars"
-import { FreecodecampIcon } from "../../../svgs/freecodecamp"
-import { GitlabIcon } from "../../../svgs/gitlab"
-import { HashnodeIcon } from "../../../svgs/hashnode"
-import { StackoverflowIcon } from "../../../svgs/stackoverflow"
-import { ArrowRightIcon } from "../../../svgs/arrowRight"
+import { GithubIcon } from "../../svgs/github"
+import { YoutubeIcon } from "../../svgs/youtube"
+import { LinkedinIcon } from "../../svgs/linkedin"
+import { FrontendmentorOriginalIcon } from "../../svgs/frontendmentorOriginal"
+import { TwitterIcon } from "../../svgs/twitter"
+import { FacebookIcon } from "../../svgs/facebook"
+import { TwitchIcon } from "../../svgs/twitch"
+import { DevtoIcon } from "../../svgs/devto"
+import { CodewarsIcon } from "../../svgs/codewars"
+import { FreecodecampIcon } from "../../svgs/freecodecamp"
+import { GitlabIcon } from "../../svgs/gitlab"
+import { HashnodeIcon } from "../../svgs/hashnode"
+import { StackoverflowIcon } from "../../svgs/stackoverflow"
+import { ArrowRightIcon } from "../../svgs/arrowRight"
+import { PhoneFrameVector } from "../../svgs/phoneFrame"
+import { useUserStore } from "@/app/(client)/_store/user"
 
 
 const Preview = () =>{
+  const user = useUserStore()
   const { links } = useLinksStore()
 
   const buildPreviewItemData = (item: Link) =>{
@@ -155,8 +157,16 @@ const Preview = () =>{
         <div className="absolute inset-0 pt-16 px-8">
           <div className="flex flex-col items-center mb-14">
             <div className="bg-[#EEEEEE] rounded-full w-24 h-24 mb-6"></div>
-            <div className="bg-[#EEEEEE] w-[160px] h-4 rounded-2xl mb-3"></div>
-            <div className="bg-[#EEEEEE] w-[72px] h-2 rounded-2xl"></div>
+            { !!user.firstname && !!user.lastname?
+              <p className="font-semibold text-dark-grey text-lg mb-3"></p>
+              :
+              <div className="bg-[#EEEEEE] w-[160px] h-4 rounded-2xl mb-3"></div>
+            }
+            { user.email!==""? 
+              <p className="text-grey text-sm">{ user.email }</p>
+              :
+              <div className="bg-[#EEEEEE] w-[72px] h-2 rounded-2xl"></div>
+            }
           </div>
           <ul className=" max-h-[300px] overflow-y-auto no-scrollbar">
             { renderItems() }

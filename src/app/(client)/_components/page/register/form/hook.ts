@@ -29,7 +29,9 @@ export const useRegisterForm = () =>{
     setError } = useForm<FormSchema>({
     resolver: zodResolver(formSchema)
   })
-  const { mutate } = trpc.auth.register.useMutation({
+  const { 
+    mutate,
+    isPending } = trpc.auth.register.useMutation({
     onSuccess: () =>{
       signIn("credentials", {
         email: getValues("email"),
@@ -51,6 +53,8 @@ export const useRegisterForm = () =>{
       
       return setError("confirmPassword", { message: "Password does not match" })
     }
+
+    if ( isPending ) return
 
     mutate({
       email: data.email,

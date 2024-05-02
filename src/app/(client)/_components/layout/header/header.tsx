@@ -1,12 +1,62 @@
+"use client"
 import Link from "next/link"
 import { LogoMobileIcon } from "../../svgs/logoMobile"
-import { LinkIcon } from "../../svgs/link"
 import { EyeIcon } from "../../svgs/eye"
-import { ProfileIcon } from "../../svgs/profile"
 import { LogoIcon } from "../../svgs/logo"
+import { useHeader } from "./hook"
+import { headerData } from "./data"
+import { 
+  motion,
+  AnimatePresence } from "framer-motion"
 
 
 const Header = () =>{
+  const { 
+    pathname,
+    handleNavItemHover,
+    handleNavItemMouseLeave,
+    activeNavItem,
+    hoveredNavItem } = useHeader()
+
+  const renderNavlinks = () =>{
+    const mappedLinks = headerData.map(link => (
+      <li
+        className="relative"
+        key={ `header-${ link.href }` }
+        onMouseMove={ () => handleNavItemHover(link.href) }
+        onMouseLeave={ handleNavItemMouseLeave }>
+        <Link
+          className={`relative z-10 h-full mr-[2px] flex items-center justify-center w-[74px] rounded text-grey md:w-auto md:px-[27px] lg:hover:text-purple ${ activeNavItem===link.href && "text-purple" }`}
+          href={ link.href }
+          aria-current={`${ pathname===link.href? "page" : false }`}>
+          { link.icon() }
+          <span className="hidden md:inline md:ml-2">{ link.label }</span>
+        </Link>
+        <AnimatePresence>
+          {hoveredNavItem === link.href && (
+            <motion.span
+              layoutId="hover"
+              exit={{ opacity: 0 }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="absolute inset-0 bg-light-purple rounded-lg" />
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          { (activeNavItem === link.href || hoveredNavItem===link.href) && (
+            <motion.span
+              layoutId="active"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="absolute inset-0 bg-light-purple rounded-lg" />
+          )}
+        </AnimatePresence>
+      </li>
+    ))
+
+    return mappedLinks
+  }
 
   return (
     <header className="bg-light-grey md:h-[126px] md:p-6">
@@ -19,20 +69,9 @@ const Header = () =>{
             <LogoIcon />
           </div>
         </Link>
-        <div className="flex h-[42px] md:h-[46px]">
-          <Link
-            className="h-full mr-[2px] flex items-center justify-center w-[74px] rounded bg-light-purple text-purple md:w-auto md:px-[27px]" 
-            href="/">
-            <LinkIcon />
-            <span className="hidden md:inline md:ml-2">Links</span>
-          </Link>
-          <Link
-            className="h-full flex items-center justify-center w-[74px] rounded bg-white text-grey md:w-auto md:px-[27px]" 
-            href="/">
-            <ProfileIcon />
-            <span className="hidden md:inline md:ml-2">Profile Details</span>
-          </Link>
-        </div>
+        <ul className="flex h-[42px] md:h-[46px]">
+          { renderNavlinks() }
+        </ul>
         <Link
           className="text-purple border-purple h-[42px] flex items-center justify-center w-[52px] border rounded md:w-auto md:px-[27px] md:h-[46px]"
           href="/preview">

@@ -24,6 +24,9 @@ const config: Config = {
         "borders": "#D9D9D9",
         "light-grey": "#FAFAFA",
         "red": "#FF3939"
+      },
+      boxShadow: {
+        "purple-light": "0 0 16px 8px #633CFF30"
       }
     },
     fontFamily: {

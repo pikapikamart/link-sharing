@@ -5,13 +5,15 @@ import { user } from "@/app/_server/database/schema";
 import { 
   trpcError, 
   trpcSuccess } from "../../utils";
+import { ProfileSchema } from "../../routers/user/schema";
 
 
 export const profileHandler = async(ctx: Context) =>{
   const foundUser = await db.query.user.findFirst({
     where: eq(user.email, ctx.token?.email as string),
     columns: {
-      password: false
+      password: false,
+      id: false
     },
     with: {
       links: true
@@ -24,4 +26,9 @@ export const profileHandler = async(ctx: Context) =>{
   }
 
   return trpcSuccess("Successfully queried profile", foundUser)
+}
+
+export const updateHandler = async(input: ProfileSchema, ctx: Context) =>{
+
+
 }
