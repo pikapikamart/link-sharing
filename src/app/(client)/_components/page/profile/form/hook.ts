@@ -1,4 +1,3 @@
-import { trpc } from "@/app/(client)/_lib/trpc"
 import { ProfileSchema } from "@/app/_server/trpc/routers/user/schema"
 import { useSession } from "next-auth/react"
 import { 
@@ -16,9 +15,8 @@ export const useProfileForm = () =>{
     handleSubmit,
     control,
     watch } = useFormContext<ProfileSchema>()
-  const { mutate, isPending } = trpc.user.update.useMutation()
   const { data: session } = useSession()
-
+  console.log(formErrors)
   const handleFormSubmit: SubmitHandler<ProfileSchema> = async(data) => {
     if ( !session?.user ) return
 
@@ -28,7 +26,7 @@ export const useProfileForm = () =>{
       fd.append(k, v)
     }
 
-    console.log(await updateProfile(session, fd))
+    await updateProfile(session, fd)
   }
  
   return {

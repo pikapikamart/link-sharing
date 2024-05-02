@@ -47,7 +47,7 @@ export const updateProfile = async(userSession: Session, form: FormData) =>{
 
   let userImage: null | string = null
 
-  if ( foundUser.image===null ) {
+  if ( foundUser.image===null && typeof validatedFields.data.image!=="string" ) {
     const createImage = async (img: File) => {
       const arrayBuffer = await img.arrayBuffer()
       const buffer = new Uint8Array(arrayBuffer)
@@ -74,15 +74,15 @@ export const updateProfile = async(userSession: Session, form: FormData) =>{
     await createImage(validatedFields.data.image)
   }
 
-  
-  await db.update(user).set({
+  await db.update(user).set(Object.assign({
     firstName: validatedFields.data.firstname,
-    lastName: validatedFields.data.lastname,
-    image: userImage
-  }).where(eq(user.id, foundUser.id))
+    lastName: validatedFields.data.lastname, 
+  }, userImage!==null? { image: userImage } : null
+  )).where(eq(user.id, foundUser.id))
 
   return {
     success: true,
-    message: "Updated profile"
+    message: "Updated profile",
+    imageUrl: userImage
   }
 }
