@@ -57,6 +57,20 @@
       "when": 1714632731553,
       "tag": "0007_happy_sunspot",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1714727091682,
+      "tag": "0008_special_stephen_strange",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1714727202107,
+      "tag": "0009_keen_inertia",
+      "breakpoints": true
     }
   ]
 }
