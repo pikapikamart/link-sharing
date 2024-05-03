@@ -1,19 +1,4 @@
-import { 
-  Link, 
-  useLinksStore } from "@/app/(client)/_store/links"
-import { GithubIcon } from "../../svgs/github"
-import { YoutubeIcon } from "../../svgs/youtube"
-import { LinkedinIcon } from "../../svgs/linkedin"
-import { FrontendmentorOriginalIcon } from "../../svgs/frontendmentorOriginal"
-import { TwitterIcon } from "../../svgs/twitter"
-import { FacebookIcon } from "../../svgs/facebook"
-import { TwitchIcon } from "../../svgs/twitch"
-import { DevtoIcon } from "../../svgs/devto"
-import { CodewarsIcon } from "../../svgs/codewars"
-import { FreecodecampIcon } from "../../svgs/freecodecamp"
-import { GitlabIcon } from "../../svgs/gitlab"
-import { HashnodeIcon } from "../../svgs/hashnode"
-import { StackoverflowIcon } from "../../svgs/stackoverflow"
+import { useLinksStore } from "@/app/(client)/_store/links"
 import { ArrowRightIcon } from "../../svgs/arrowRight"
 import { useUserStore } from "@/app/(client)/_store/user"
 import { 
@@ -49,10 +34,11 @@ const Preview = () =>{
       return (
         <motion.li
           key={`preview-${ index }-${ item.platform }`} 
-          className="h-11 rounded-lg mb-5 flex items-center px-4 relative"
+          className="h-11 rounded-lg mb-5 flex items-center px-4 relative focus-within:outline focus-within:outline-2 focus-within:outline-offset-2"
           style={{
             backgroundColor: previewItem.backgroundColor,
-            border: previewItem.backgroundColor==="#FFFFFF"? "1px solid #D9D9D9" : ""
+            border: previewItem.backgroundColor==="#FFFFFF"? "1px solid #D9D9D9" : "",
+            outlineColor: previewItem.outlineColor ?? previewItem.backgroundColor ?? ""
           }}
           variants={ swiperVariant }
           initial="initial"
@@ -70,12 +56,12 @@ const Preview = () =>{
             <p style={{ color: previewItem.color?? "white"}}>{ previewItem.label }</p>
             <a 
               className="block ml-auto group
-              after:absolute after:inset-0"
+              after:absolute after:inset-0 focus:outline-none"
               style={{ color: previewItem.color?? "white"}}
               href={ item.url }
               target="_blank">
               <span className="sr-only">{ previewItem.label }</span>
-              <div className=" group-hover:translate-x-2 transition-transform">
+              <div className="transition-transform group-hover:translate-x-2  group-focus:translate-x-2">
                 <ArrowRightIcon />
               </div>
             </a>
@@ -140,10 +126,10 @@ const Preview = () =>{
             </AnimatePresence>
           </motion.div>
           <div className="relative">
-            <div className={`transition-opacity ${ links.length >=5? "opacity-0" : "" }`}>
+            <div className={`transition-opacity p-1 ${ links.length >=5? "opacity-0" : "" }`}>
               { renderItemBackgrounds() }
             </div>
-            <ul className="absolute top-0 right-0 left-0 max-h-[300px] overflow-y-auto no-scrollbar">
+            <ul className="absolute top-0 right-0 left-0 max-h-[300px] p-1 overflow-y-auto overflow-x-auto no-scrollbar">
               { renderItems() }
             </ul>
           </div>

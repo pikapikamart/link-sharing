@@ -39,7 +39,8 @@ export const buildPreviewItem = (item: Link) =>{
         label: "Frontend Mentor",
         backgroundColor: "#FFFFFF",
         color: "#333333",
-        icon: () => <FrontendmentorOriginalIcon />
+        icon: () => <FrontendmentorOriginalIcon />,
+        outlineColor: "#68becd"
       }
     case "twitter":
       return {

@@ -18,7 +18,7 @@ const Image = () =>{
       </label>
       <div className="md:flex md:items-center md:basis-[60%]">
         <div className="mb-6 md:mb-0 md:mr-6">
-          <div className="relative h-[194px] w-[194px] rounded-lg focus-within:outline-1 focus-within:outline-purple focus-within:outline focus-within:shadow-purple-light">
+          <div className="relative h-[194px] w-[194px] rounded-lg focus-within:outline-2 focus-within:outline-purple focus-within:outline-dashed focus-within:shadow-purple-light">
             <Controller
               control={ control }
               name="image"
