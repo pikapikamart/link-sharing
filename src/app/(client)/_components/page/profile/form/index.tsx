@@ -4,23 +4,28 @@ import {
 import Form from "./form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
-import { useSession } from "next-auth/react"
+import { useUserStore } from "@/app/(client)/_store/user"
 import { 
   ProfileSchema, 
-  profileSchema } from "@/app/_server/trpc/routers/user/schema"
+  profileSchema } from "./hook"
 
 
 const ProfileForm = () => {
   const methods = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema)
   })
-  const { data } = useSession()
-
+  const user = useUserStore()
+  
   useEffect(() =>{
-    if ( data?.user?.email ) {
-      methods.setValue("email", data.user.email)
+    methods.setValue("email", user.email)
+    methods.setValue("firstName", user.firstName?? "")
+    methods.setValue("lastName", user.lastName?? "")
+
+    if ( !methods.getValues("image") ) {
+      
+      methods.setValue("image", user.image)
     }
-  }, [ data ])
+  }, [ user ])
 
   return (
     <FormProvider {...methods}>
