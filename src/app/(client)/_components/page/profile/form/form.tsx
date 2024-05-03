@@ -26,16 +26,16 @@ const Form = () =>{
                 label="First name *"
                 attributes={{ id: "profileFirstname" }}
                 placeHolder="e.g John"
-                {...register("firstname")}
-                error={ formErrors.firstname?.message } />
+                {...register("firstName")}
+                error={ formErrors.firstName?.message } />
             </div>
             <div className="mb-3">
               <ProfileTextInput
                 label="Last name *"
                 attributes={{ id: "profileLastname" }}
                 placeHolder="e.g Doe"
-                {...register("lastname")}
-                error={ formErrors.lastname?.message } />
+                {...register("lastName")}
+                error={ formErrors.lastName?.message } />
             </div>
             <div className="mb-3">
               <ProfileTextInput

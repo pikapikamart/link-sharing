@@ -42,10 +42,10 @@ export const profileSchema = z.object({
       return dimensions.height <= 1024 && dimensions.width <= 1024
     }, "Dimension must be below 1024")
     .optional(),
-  firstname: z
+  firstName: z
     .string()
     .min(2, "Atleast 2 letters"),
-  lastname: z
+  lastName: z
     .string()
     .min(2, "Atleast 2 letters"),
   email: z

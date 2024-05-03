@@ -62,8 +62,8 @@ export const updateProfileAction = createAction(schema, async(input) =>{
   await db
     .update(user)
     .set(Object.assign({
-      firstName: input.firstname,
-      lastName: input.lastname, 
+      firstName: input.firstName,
+      lastName: input.lastName, 
     }, userImage!==null? { image: userImage } : null))
     .where(eq(user.id, foundUser.id))
 

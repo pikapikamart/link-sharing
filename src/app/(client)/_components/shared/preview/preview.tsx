@@ -20,7 +20,7 @@ import {
   motion,
   AnimatePresence } from "framer-motion"
 import { PhoneFrameVector } from "../../svgs/phoneFrame"
-import { swiperVariant } from "@/app/(client)/_motion/variants"
+import { fadeVariant, swiperVariant } from "@/app/(client)/_motion/variants"
 
 
 const Preview = () =>{
@@ -173,19 +173,53 @@ const Preview = () =>{
       <div className="relative">
         <PhoneFrameVector />
         <div className="absolute inset-0 pt-16 px-8">
-          <div className="flex flex-col items-center mb-14">
-            <div className="bg-[#EEEEEE] rounded-full w-24 h-24 mb-6"></div>
-            { !!user.firstname && !!user.lastname?
-              <p className="font-semibold text-dark-grey text-lg mb-3"></p>
-              :
-              <div className="bg-[#EEEEEE] w-[160px] h-4 rounded-2xl mb-3"></div>
-            }
-            { user.email!==""? 
-              <p className="text-grey text-sm">{ user.email }</p>
-              :
-              <div className="bg-[#EEEEEE] w-[72px] h-2 rounded-2xl"></div>
-            }
-          </div>
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit="initial" 
+            className="flex flex-col items-center mb-14">
+            <AnimatePresence>
+              { !!user.image && (
+                <motion.div
+                  key="profilePicture"
+                  variants={ fadeVariant } 
+                  className="rounded-full border-4 max-w-max mx-auto border-purple mb-6">
+                  <img 
+                    className="w-24 h-24 rounded-full"
+                    src={ user.image } 
+                    alt={`${ user.firstName?? "" } ${ user.lastName?? "" }`} />
+                </motion.div>
+              ) }
+              { !user.image && (
+                <motion.div 
+                  key="profilePictureBg"
+                  variants={ fadeVariant }
+                  className="bg-[#EEEEEE] rounded-full w-24 h-24 mb-6" />
+              ) }
+              { !!user.firstName && !!user.lastName?
+                <motion.p
+                  key="profileName"
+                  variants={fadeVariant} 
+                  className="font-semibold text-dark-grey text-lg mb-2">{ user.firstName } { user.lastName }</motion.p>
+                :
+                <motion.div
+                  key="profileNameBg"
+                  variants={fadeVariant} 
+                  className="bg-[#EEEEEE] w-[160px] h-4 rounded-2xl mb-3"/>
+              }
+              { user.email!==""? 
+                <motion.p 
+                  key="profileEmail"
+                  variants={fadeVariant} 
+                  className="text-grey text-sm">{ user.email }</motion.p>
+                :
+                <motion.div 
+                  key="profileEmailBg"
+                  variants={fadeVariant} 
+                  className="bg-[#EEEEEE] w-[72px] h-2 rounded-2xl" />
+              }
+            </AnimatePresence>
+          </motion.div>
           <div className="relative">
             <div className={`transition-opacity ${ links.length >=5? "opacity-0" : "" }`}>
               { renderItemBackgrounds() }
