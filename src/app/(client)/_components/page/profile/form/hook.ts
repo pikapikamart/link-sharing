@@ -6,7 +6,7 @@ import { updateProfileAction } from "./actions"
 import { 
   setUser, 
   useUserStore } from "@/app/(client)/_store/user"
-import { useAction } from "next-safe-action/hooks";
+import { useAction } from "next-safe-action/hooks"
 import z from "zod"
 
 
@@ -24,32 +24,34 @@ type Dimension = {
 
 export const profileSchema = z.object({
   image: z
-    .any()
-    .refine(file => file!==undefined, "Please add an image")
-    .refine((file) => file?.size <= MAX_FILE_SIZE, "Max image size is 5mb")
-    .refine((file) => ACCEPTED_IMAGE_MIME_TYPES.includes(file?.type), "Only .jpg, .jpeg and.png formats are supported.")
-    .refine(async (file) => {
-      const fileAsDataURL = window.URL.createObjectURL(file)
-      const image = new Image()
-      image.onload = () => {
-        
-      }
-      image.src = fileAsDataURL
-
-      const getHeightAndWidthFromDataUrl = (dataURL: string) => new Promise(resolve => {
-        const img = new Image()
-        img.onload = () => {
-          resolve({
-            height: img.height,
-            width: img.width
-          })
+    .string()
+    .or(z
+      .any()
+      .refine(file => file!==undefined, "Please add an image")
+      .refine((file) => file?.size <= MAX_FILE_SIZE, "Max image size is 5mb")
+      .refine((file) => ACCEPTED_IMAGE_MIME_TYPES.includes(file?.type), "Only .jpg, .jpeg and.png formats are supported.")
+      .refine(async (file) => {
+        const fileAsDataURL = window.URL.createObjectURL(file)
+        const image = new Image()
+        image.onload = () => {
+          
         }
-        img.src = dataURL
-      })
-      const dimensions = await getHeightAndWidthFromDataUrl(fileAsDataURL) as unknown as Dimension
-      
-      return dimensions.height <= 1024 && dimensions.width <= 1024
-    }, "Dimension must be below 1024")
+        image.src = fileAsDataURL
+  
+        const getHeightAndWidthFromDataUrl = (dataURL: string) => new Promise(resolve => {
+          const img = new Image()
+          img.onload = () => {
+            resolve({
+              height: img.height,
+              width: img.width
+            })
+          }
+          img.src = dataURL
+        })
+        const dimensions = await getHeightAndWidthFromDataUrl(fileAsDataURL) as unknown as Dimension
+        
+        return dimensions.height <= 1024 && dimensions.width <= 1024
+      }, "Dimension must be below 1024"))
     .optional(),
   firstName: z
     .string()

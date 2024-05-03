@@ -9,7 +9,7 @@ const Image = () =>{
     watch,
     formErrors } = useProfileForm()
   const isImageValid = !formErrors.image?.message && !!watch("image")
-  
+ 
   return (
     <div className="p-5 bg-light-grey rounded-lg md:flex md:items-center">
       <label
@@ -35,7 +35,7 @@ const Image = () =>{
             { isImageValid && (
               <img
                 className="absolute inset-0 h-full w-full object-cover rounded-lg" 
-                src={ URL.createObjectURL(watch("image"))} 
+                src={ typeof watch("image")==="string"? watch("image") : URL.createObjectURL(watch("image"))} 
                 alt="" />
             ) }
             <label

@@ -41,7 +41,8 @@ export const updateProfileAction = createAction(schema, async(input) =>{
     if ( foundUser.image ) {
 
       const splittedImageValues = foundUser.image.split("/")
-      const userImageId = splittedImageValues[splittedImageValues.length-1].split(".png")[0]
+      const userImageId = splittedImageValues[splittedImageValues.length-1].split(".")[0]
+
       await cloudinary.v2.uploader.destroy(`link-sharing/${ userImageId }`)
     }
 

@@ -15,11 +15,16 @@ const ProfileForm = () => {
     resolver: zodResolver(profileSchema)
   })
   const user = useUserStore()
-
+  
   useEffect(() =>{
     methods.setValue("email", user.email)
     methods.setValue("firstName", user.firstName?? "")
     methods.setValue("lastName", user.lastName?? "")
+
+    if ( !methods.getValues("image") ) {
+      
+      methods.setValue("image", user.image)
+    }
   }, [ user ])
 
   return (
