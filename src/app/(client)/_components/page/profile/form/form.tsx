@@ -4,6 +4,7 @@ import { useProfileForm } from "./hook"
 import { FormImage } from "./image"
 import { ProfileTextInput } from "./input/text"
 import { ToastSuccess } from "../../../shared/toast/success"
+import { UpdateIcon } from "../../../svgs/update"
 
 
 const Form = () =>{
@@ -64,7 +65,11 @@ const Form = () =>{
         </div>
       </form>
       <AnimatePresence>
-        { shouldShow && <ToastSuccess message="Your changes have been successfully saved!" /> }
+        { shouldShow && (
+          <ToastSuccess message="Your changes have been successfully saved!">
+            <UpdateIcon />
+          </ToastSuccess>
+        ) }
       </AnimatePresence>
     </div>
   )

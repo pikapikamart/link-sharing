@@ -15,11 +15,11 @@ export type Link = {
   [ key: string ] : any
 }
 
-export type LinkState = {
+export type LinksState = {
   links: Link[]
 }
 
-export const useLinksStoreBase = create<LinkState>(() => ({
+export const useLinksStoreBase = create<LinksState>(() => ({
   links: []
 })) 
 
