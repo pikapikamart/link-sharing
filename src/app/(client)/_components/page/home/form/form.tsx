@@ -3,6 +3,8 @@ import { StartedVector } from "../../../svgs/started"
 import { useHomeForm } from "./hook"
 import { FormLinks } from "./links"
 import { Loader } from "../../../shared/loader"
+import { AnimatePresence } from "framer-motion"
+import { ToastSuccess } from "../../../shared/toast/success"
 
 
 const Form = () =>{
@@ -10,7 +12,8 @@ const Form = () =>{
     handleSubmit, 
     handleAddNewLink, 
     fields,
-    isPending } = useHomeForm()
+    isPending,
+    shouldShow } = useHomeForm()
   const { links } = useLinksStore()
 
   return (
@@ -54,6 +57,9 @@ const Form = () =>{
           </button>
         </div>
       </form>
+      <AnimatePresence>
+        { shouldShow && <ToastSuccess message="Your changes have been successfully saved!" /> }
+      </AnimatePresence>
     </div>
   )
 }
