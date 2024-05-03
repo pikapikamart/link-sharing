@@ -3,7 +3,6 @@ import { db } from "@/app/_server/database"
 import { user } from "@/app/_server/database/schema"
 import { profileSchema } from "@/app/_server/trpc/routers/user/schema"
 import { eq } from "drizzle-orm"
-import { Session } from "next-auth"
 import cloudinary from "@/app/_server/utils/cloudinary"
 import { File } from "buffer"
 import { createAction } from "@/app/(client)/_lib/utils/action"
@@ -20,19 +19,32 @@ const schema = zfd.formData(profileSchema
 
 export const updateProfileAction = createAction(schema, async(input) =>{
   const foundUser = await db.query.user.findFirst({
-    where: eq(user.email,  input.email)
+    where: eq(user.email,  input.email),
+    columns: {
+      password: false,
+    }
   })
 
   if ( !foundUser ) {
 
     return {
-      error: "Please login first"
+      error: {
+        reason: "Unauthorized access"
+      }
     }
   }
 
-  let userImage = ""
+  let userImage = typeof input.image==="string"? input.email : ""
 
-  if ( foundUser.image===null && input.image && typeof input.image!=="string" ) {
+  if ( input.image && typeof input.image!=="string" ) {
+
+    if ( foundUser.image ) {
+
+      const splittedImageValues = foundUser.image.split("/")
+      const userImageId = splittedImageValues[splittedImageValues.length-1].split(".png")[0]
+      await cloudinary.v2.uploader.destroy(`link-sharing/${ userImageId }`)
+    }
+
     const createImage = async (img: File) => {
       const arrayBuffer = await img.arrayBuffer()
       const buffer = new Uint8Array(arrayBuffer)
@@ -64,13 +76,12 @@ export const updateProfileAction = createAction(schema, async(input) =>{
     .set(Object.assign({
       firstName: input.firstName,
       lastName: input.lastName, 
-    }, userImage!==null? { image: userImage } : null))
+    }, userImage!==""? { image: userImage } : null))
     .where(eq(user.id, foundUser.id))
 
   return {
     success: "Successfully updated profile",
-    data: {
-      image: userImage
-    }
+    image: userImage
   }
+
 })
