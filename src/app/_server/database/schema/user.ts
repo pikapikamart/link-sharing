@@ -14,7 +14,10 @@ export const user = mysqlTable("user", {
   password: varchar("password", { length: 255 }).notNull(),
   firstName: varchar("firstName", { length: 255 }),
   lastName: varchar("lastName", { length: 255 }),
-  image: varchar("image", { length: 255 })
+  image: varchar("image", { length: 255 }),
+  username: varchar("username", { length: 255 })
+    .notNull()
+    .unique()
 })
 
 export const userRelations = relations(user, ({ one, many }) => ({

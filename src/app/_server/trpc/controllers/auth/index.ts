@@ -1,7 +1,7 @@
 import { db } from "@/app/_server/database";
 import { RegisterSchema } from "../../routers/auth/schema";
 import { user } from "@/app/_server/database/schema";
-import { eq } from "drizzle-orm";
+import { eq, like } from "drizzle-orm";
 import bcrypt from "bcrypt"
 import { 
   trpcError, 
@@ -12,14 +12,18 @@ export const registerHandler = async(input: RegisterSchema) =>{
   const existingUser = await db.query.user.findFirst({
     where: eq(user.email, input.email)
   })
-  
+  const usersWithTheSameUsername = await db.query.user.findMany({
+    where: like(user.username, `%${ input.email.split("@")[0] }%`)
+  })
+
   if ( !existingUser ) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(input.password, salt);
 
     await db.insert(user).values({
       email: input.email,
-      password: hash
+      password: hash,
+      username: `${ input.email.split("@")[0] }${ usersWithTheSameUsername.length>=1? usersWithTheSameUsername.length : "" }`
     })
 
     return trpcSuccess("Successfully created account", {})

@@ -31,7 +31,9 @@ export const link = mysqlTable("link", {
   url: varchar("url", { length: 1000 }).notNull(),
   userId: int("user_id")
     .notNull()
-    .references(() => user.id),
+    .references(() => user.id, {
+      onDelete: "cascade"
+    }),
   position: int("position").notNull()
 })
 
