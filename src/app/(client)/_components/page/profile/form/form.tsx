@@ -1,7 +1,9 @@
+import { AnimatePresence } from "framer-motion"
 import { Loader } from "../../../shared/loader"
 import { useProfileForm } from "./hook"
 import { FormImage } from "./image"
 import { ProfileTextInput } from "./input/text"
+import { ToastSuccess } from "../../../shared/toast/success"
 
 
 const Form = () =>{
@@ -9,7 +11,8 @@ const Form = () =>{
     register,
     handleSubmit,
     formErrors,
-    status } = useProfileForm()
+    status,
+    shouldShow } = useProfileForm()
 
   return (
     <div className="bg-white rounded-lg pt-6 max-w-[808px] relative min-h-[calc(100vh-90px)] md:pt-10">
@@ -60,6 +63,9 @@ const Form = () =>{
           </button>
         </div>
       </form>
+      <AnimatePresence>
+        { shouldShow && <ToastSuccess message="Your changes have been successfully saved!" /> }
+      </AnimatePresence>
     </div>
   )
 }

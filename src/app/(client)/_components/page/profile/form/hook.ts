@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react"
 import { 
   SubmitHandler, 
   useFormContext} from "react-hook-form"
@@ -8,7 +7,7 @@ import {
   useUserStore } from "@/app/(client)/_store/user"
 import { useAction } from "next-safe-action/hooks"
 import z from "zod"
-import { useState } from "react"
+import { useToast } from "../../../shared/toast/hook"
 
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5
@@ -73,6 +72,7 @@ export const profileSchema = z.object({
 export type ProfileSchema = z.TypeOf<typeof profileSchema>
 
 export const useProfileForm = () =>{
+  const { shouldShow, handleChangeToast } = useToast()
   const {
     register, 
     formState: {
@@ -85,7 +85,8 @@ export const useProfileForm = () =>{
   const { execute, status } = useAction(updateProfileAction, {
     onSuccess: data => {
       if ( data.success ) {
-        setUser({ ...data.user })          
+        setUser({ ...data.user })       
+        handleChangeToast(true)   
       }
     },
   })
@@ -109,6 +110,7 @@ export const useProfileForm = () =>{
     control,
     watch,
     handleSubmit: handleSubmit(handleFormSubmit),
-    status
+    status,
+    shouldShow
   }
 }

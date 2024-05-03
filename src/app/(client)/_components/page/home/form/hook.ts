@@ -1,25 +1,31 @@
 import { SubmitHandler } from "react-hook-form"
 import { HomeFormContext } from "."
 import { useContext } from "react"
-import { setLinks, useLinksStore } from "@/app/(client)/_store/links"
+import { 
+  setLinks, 
+  useLinksStore } from "@/app/(client)/_store/links"
 import { LinksSchema } from "@/app/_server/trpc/routers/links/schema"
 import { trpc } from "@/app/(client)/_lib/trpc"
 import { platforms } from "@/app/_server/database/schema"
+import { useToast } from "../../../shared/toast/hook"
 
 
 export const useHomeFormContext = () => useContext(HomeFormContext)
 
 export const useHomeForm = () =>{
+  const { shouldShow, handleChangeToast } = useToast()
   const context = useHomeFormContext()
   const { 
     mutate,
     isPending } = trpc.links.set.useMutation({
     onSuccess: data => {
       setLinks(data.data.links)
+      handleChangeToast(true)
     }
   })
   const { links } = useLinksStore()
 
+  
   if ( !context ) return {}
 
   const { 
@@ -80,6 +86,7 @@ export const useHomeForm = () =>{
     register,
     setValue,
     watch,
-    isPending
+    isPending,
+    shouldShow
   }
 }
