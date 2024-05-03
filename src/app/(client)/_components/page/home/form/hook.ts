@@ -79,6 +79,7 @@ export const useHomeForm = () =>{
     formErrors,
     register,
     setValue,
-    watch
+    watch,
+    isPending
   }
 }

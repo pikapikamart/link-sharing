@@ -1,3 +1,4 @@
+import { Loader } from "../../../shared/loader"
 import { useProfileForm } from "./hook"
 import { FormImage } from "./image"
 import { ProfileTextInput } from "./input/text"
@@ -7,7 +8,8 @@ const Form = () =>{
   const { 
     register,
     handleSubmit,
-    formErrors } = useProfileForm()
+    formErrors,
+    status } = useProfileForm()
 
   return (
     <div className="bg-white rounded-lg pt-6 max-w-[808px] relative min-h-[calc(100vh-90px)] md:pt-10">
@@ -53,7 +55,8 @@ const Form = () =>{
         <div className="border-t border-t-borders p-4 w-full bottom-0 lg:absolute lg:py-6 lg:px-10">
           <button
             className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 lg:hover:bg-purple-hover lg:transition-all`}
-            type="submit">Save
+            type="submit">
+            { status==="executing"? <Loader /> : "Save" }  
           </button>
         </div>
       </form>

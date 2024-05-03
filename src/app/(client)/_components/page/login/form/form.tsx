@@ -6,7 +6,6 @@ import { PasswordIcon } from "../../../svgs/password"
 import { useRegisterForm } from "./hook"
 import { FormTextInput } from "../../../shared/form/input/text"
 import { Loader } from "../../../shared/loader"
-import { AnimatePresence } from "framer-motion"
 
 
 const Form = () =>{

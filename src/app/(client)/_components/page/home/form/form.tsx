@@ -2,14 +2,15 @@ import { useLinksStore } from "@/app/(client)/_store/links"
 import { StartedVector } from "../../../svgs/started"
 import { useHomeForm } from "./hook"
 import { FormLinks } from "./links"
-import { motion } from "framer-motion"
+import { Loader } from "../../../shared/loader"
 
 
 const Form = () =>{
   const { 
     handleSubmit, 
     handleAddNewLink, 
-    fields } = useHomeForm()
+    fields,
+    isPending } = useHomeForm()
   const { links } = useLinksStore()
 
   return (
@@ -48,7 +49,8 @@ const Form = () =>{
           <button
             className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 lg:hover:bg-purple-hover lg:transition-all ${ fields?.length===0 && "active:aria-disabled:bg-purple active:aria-disabled:bg-opacity-25" }`}
             type="submit"
-            aria-disabled={ links.length===0 && fields?.length===0 }>Save
+            aria-disabled={ links.length===0 && fields?.length===0 }>
+            { isPending? <Loader /> : "Save" } 
           </button>
         </div>
       </form>

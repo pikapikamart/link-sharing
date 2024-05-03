@@ -34,7 +34,7 @@ export const updateProfileAction = createAction(schema, async(input) =>{
     }
   }
 
-  let userImage = typeof input.image==="string"? input.email : ""
+  let userImage = typeof input.image==="string"? input.image : ""
 
   if ( input.image && typeof input.image!=="string" ) {
 

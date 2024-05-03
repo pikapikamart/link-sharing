@@ -8,6 +8,7 @@ import {
   useUserStore } from "@/app/(client)/_store/user"
 import { useAction } from "next-safe-action/hooks"
 import z from "zod"
+import { useState } from "react"
 
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5
@@ -31,6 +32,11 @@ export const profileSchema = z.object({
       .refine((file) => file?.size <= MAX_FILE_SIZE, "Max image size is 5mb")
       .refine((file) => ACCEPTED_IMAGE_MIME_TYPES.includes(file?.type), "Only .jpg, .jpeg and.png formats are supported.")
       .refine(async (file) => {
+        if ( typeof file ==="string" ) {
+
+          return true
+        }
+
         const fileAsDataURL = window.URL.createObjectURL(file)
         const image = new Image()
         image.onload = () => {
@@ -75,9 +81,8 @@ export const useProfileForm = () =>{
     handleSubmit,
     control,
     watch } = useFormContext<ProfileSchema>()
-  const { data: session } = useSession()
   const user = useUserStore()
-  const { execute } = useAction(updateProfileAction, {
+  const { execute, status } = useAction(updateProfileAction, {
     onSuccess: data => {
       if ( data.success ) {
         setUser({ ...data.user })          
@@ -86,7 +91,7 @@ export const useProfileForm = () =>{
   })
 
   const handleFormSubmit: SubmitHandler<ProfileSchema> = async(data) => {
-    if ( !session?.user ) return
+    if ( !user.email || status==="executing" ) return
 
     data.email = user.email
     const fd = new FormData()
@@ -103,6 +108,7 @@ export const useProfileForm = () =>{
     formErrors,
     control,
     watch,
-    handleSubmit: handleSubmit(handleFormSubmit)
+    handleSubmit: handleSubmit(handleFormSubmit),
+    status
   }
 }
