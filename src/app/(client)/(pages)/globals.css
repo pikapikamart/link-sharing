@@ -8,9 +8,16 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-input:focus {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px dashed #633CFF;
+  outline-offset: 1px;
+}
+
+input:focus-visible {
   box-shadow: 0 0 16px 8px #633CFF30;
-  outline: 1px solid #633CFF;
 }
 
 /* width */

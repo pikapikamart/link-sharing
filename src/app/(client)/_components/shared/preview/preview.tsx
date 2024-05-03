@@ -1,115 +1,19 @@
-import { 
-  Link, 
-  useLinksStore } from "@/app/(client)/_store/links"
-import { GithubIcon } from "../../svgs/github"
-import { YoutubeIcon } from "../../svgs/youtube"
-import { LinkedinIcon } from "../../svgs/linkedin"
-import { FrontendmentorOriginalIcon } from "../../svgs/frontendmentorOriginal"
-import { TwitterIcon } from "../../svgs/twitter"
-import { FacebookIcon } from "../../svgs/facebook"
-import { TwitchIcon } from "../../svgs/twitch"
-import { DevtoIcon } from "../../svgs/devto"
-import { CodewarsIcon } from "../../svgs/codewars"
-import { FreecodecampIcon } from "../../svgs/freecodecamp"
-import { GitlabIcon } from "../../svgs/gitlab"
-import { HashnodeIcon } from "../../svgs/hashnode"
-import { StackoverflowIcon } from "../../svgs/stackoverflow"
+import { useLinksStore } from "@/app/(client)/_store/links"
 import { ArrowRightIcon } from "../../svgs/arrowRight"
 import { useUserStore } from "@/app/(client)/_store/user"
 import { 
   motion,
   AnimatePresence } from "framer-motion"
 import { PhoneFrameVector } from "../../svgs/phoneFrame"
-import { fadeVariant, swiperVariant } from "@/app/(client)/_motion/variants"
+import { 
+  fadeVariant, 
+  swiperVariant } from "@/app/(client)/_motion/variants"
+import { buildPreviewItem } from "@/app/(client)/_lib/utils/buildPreviewItems"
 
 
 const Preview = () =>{
   const user = useUserStore()
   const { links } = useLinksStore()
-
-  const buildPreviewItemData = (item: Link) =>{
-    switch(item.platform) {
-      case "github":
-        return {
-          label: "Github",
-          backgroundColor: "#1A1A1A",
-          icon: () => <GithubIcon />
-        }
-      case "youtube":
-        return {
-          label: "Youtube",
-          backgroundColor: "#EE3939",
-          icon: () => <YoutubeIcon />
-        }
-      case "linkedin":
-        return {
-          label: "Linkedin",
-          backgroundColor: "#2D68FF",
-          icon: () => <LinkedinIcon />
-        }
-      case "frontendmentor":
-        return {
-          label: "Frontend Mentor",
-          backgroundColor: "#FFFFFF",
-          color: "#333333",
-          icon: () => <FrontendmentorOriginalIcon />
-        }
-      case "twitter":
-        return {
-          label: "Twitter",
-          backgroundColor: "#43B7E9",
-          icon: () => <TwitterIcon />
-        }
-      case "facebook":
-        return {
-          label: "Facebook",
-          backgroundColor: "#2442AC",
-          icon: () => <FacebookIcon />
-        }
-      case "twitch":
-        return {
-          label: "Twitch",
-          backgroundColor: "#EE3FC8",
-          icon: () => <TwitchIcon />
-        }
-      case "devto":
-        return {
-          label: "Dev.to",
-          backgroundColor: "#333333",
-          icon: () => <DevtoIcon />
-        }
-      case "codewars":
-        return {
-          label: "Codewars",
-          backgroundColor: "#8A1A50",
-          icon: () => <CodewarsIcon />
-        }
-      case "freecodecamp":
-        return {
-          label: "freeCodeCamp",
-          backgroundColor: "#302267",
-          icon: () => <FreecodecampIcon />
-        }
-      case "gitlab":
-        return {
-          label: "GitLab",
-          backgroundColor: "#EB4925",
-          icon: () => <GitlabIcon />
-        }
-      case "hashnode":
-        return {
-          label: "Hashnode",
-          backgroundColor: "#0330D1",
-          icon: () => <HashnodeIcon />
-        }
-      case "stackoverflow":
-        return {
-          label: "Stack Overflow",
-          backgroundColor: "#EC7100",
-          icon: () => <StackoverflowIcon />
-        }
-    }
-  }
 
   const renderItemBackgrounds = () =>{
     const mappedBackground = Array(5)
@@ -125,15 +29,16 @@ const Preview = () =>{
   
   const renderItems = () =>{
     const mappedItems = links.map((item, index) => {
-      const previewItem = buildPreviewItemData(item)
+      const previewItem = buildPreviewItem(item)
     
       return (
         <motion.li
           key={`preview-${ index }-${ item.platform }`} 
-          className="h-11 rounded-lg mb-5 flex items-center px-4 relative"
+          className="h-11 rounded-lg mb-5 flex items-center px-4 relative focus-within:outline focus-within:outline-2 focus-within:outline-offset-2"
           style={{
             backgroundColor: previewItem.backgroundColor,
-            border: previewItem.backgroundColor==="#FFFFFF"? "1px solid #D9D9D9" : ""
+            border: previewItem.backgroundColor==="#FFFFFF"? "1px solid #D9D9D9" : "",
+            outlineColor: previewItem.outlineColor ?? previewItem.backgroundColor ?? ""
           }}
           variants={ swiperVariant }
           initial="initial"
@@ -151,12 +56,12 @@ const Preview = () =>{
             <p style={{ color: previewItem.color?? "white"}}>{ previewItem.label }</p>
             <a 
               className="block ml-auto group
-              after:absolute after:inset-0"
+              after:absolute after:inset-0 focus:outline-none"
               style={{ color: previewItem.color?? "white"}}
               href={ item.url }
               target="_blank">
               <span className="sr-only">{ previewItem.label }</span>
-              <div className=" group-hover:translate-x-2 transition-transform">
+              <div className="transition-transform group-hover:translate-x-2  group-focus:translate-x-2">
                 <ArrowRightIcon />
               </div>
             </a>
@@ -221,10 +126,10 @@ const Preview = () =>{
             </AnimatePresence>
           </motion.div>
           <div className="relative">
-            <div className={`transition-opacity ${ links.length >=5? "opacity-0" : "" }`}>
+            <div className={`transition-opacity p-1 ${ links.length >=5? "opacity-0" : "" }`}>
               { renderItemBackgrounds() }
             </div>
-            <ul className="absolute top-0 right-0 left-0 max-h-[300px] overflow-y-auto no-scrollbar">
+            <ul className="absolute top-0 right-0 left-0 max-h-[300px] p-1 overflow-y-auto overflow-x-auto no-scrollbar">
               { renderItems() }
             </ul>
           </div>

@@ -3,8 +3,8 @@ import { createSelectors } from "../"
 
 
 export type UserState = {
-  firstName?: string
-  lastName?: string
+  firstName?: string | null
+  lastName?: string | null
   image?: string | null
   email: string
 }

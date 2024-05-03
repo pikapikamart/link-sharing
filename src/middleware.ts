@@ -16,6 +16,11 @@ const middleware = async (request: NextRequest) => {
     return NextResponse.rewrite(new URL('/profile', request.url))
   }
 
+  if ( request.nextUrl.pathname.startsWith("/preview") ) {
+    
+    return NextResponse.rewrite(new URL('/preview', request.url))
+  }
+
   return NextResponse.rewrite(new URL('/', request.url))
 }
 
@@ -24,6 +29,7 @@ export { middleware }
 export const config = {
   matcher: [
     "/",
-    "/profile"
+    "/profile",
+    "/preview"
   ],
 }

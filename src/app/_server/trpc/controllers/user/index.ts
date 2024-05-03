@@ -5,7 +5,6 @@ import { user } from "@/app/_server/database/schema";
 import { 
   trpcError, 
   trpcSuccess } from "../../utils";
-import { ProfileSchema } from "../../routers/user/schema";
 
 
 export const profileHandler = async(ctx: Context) =>{
@@ -26,9 +25,4 @@ export const profileHandler = async(ctx: Context) =>{
   }
 
   return trpcSuccess("Successfully queried profile", foundUser)
-}
-
-export const updateHandler = async(input: ProfileSchema, ctx: Context) =>{
-
-
 }
