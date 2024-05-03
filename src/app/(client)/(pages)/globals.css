@@ -13,6 +13,14 @@ input:focus {
   outline: 1px solid #633CFF;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px dashed #635FC7;
+  outline-offset: 1px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
