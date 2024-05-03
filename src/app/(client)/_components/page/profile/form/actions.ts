@@ -1,13 +1,13 @@
 "use server"
 import { db } from "@/app/_server/database"
 import { user } from "@/app/_server/database/schema"
-import { profileSchema } from "@/app/_server/trpc/routers/user/schema"
 import { eq } from "drizzle-orm"
 import cloudinary from "@/app/_server/utils/cloudinary"
 import { File } from "buffer"
 import { createAction } from "@/app/(client)/_lib/utils/action"
 import { zfd } from "zod-form-data"
 import { z } from "zod"
+import { profileSchema } from "./hook"
 
 
 const schema = zfd.formData(profileSchema
@@ -76,12 +76,15 @@ export const updateProfileAction = createAction(schema, async(input) =>{
     .set(Object.assign({
       firstName: input.firstName,
       lastName: input.lastName, 
-    }, userImage!==""? { image: userImage } : null))
+    }, userImage && userImage!==""? { image: userImage } : null))
     .where(eq(user.id, foundUser.id))
 
   return {
     success: "Successfully updated profile",
-    image: userImage
+    user: {
+      image: userImage,
+      firstName: input.firstName,
+      lastName: input.lastName
+    }
   }
-
 })

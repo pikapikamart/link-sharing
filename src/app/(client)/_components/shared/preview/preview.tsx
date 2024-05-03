@@ -185,7 +185,7 @@ const Preview = () =>{
                   variants={ fadeVariant } 
                   className="rounded-full border-4 max-w-max mx-auto border-purple mb-6">
                   <img 
-                    className="w-24 h-24 rounded-full"
+                    className="w-24 h-24 rounded-full object-cover"
                     src={ user.image } 
                     alt={`${ user.firstName?? "" } ${ user.lastName?? "" }`} />
                 </motion.div>
