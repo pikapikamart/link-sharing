@@ -3,7 +3,8 @@ import { useSession } from "next-auth/react"
 import { 
   SubmitHandler, 
   useFormContext} from "react-hook-form"
-import { updateProfile } from "./actions"
+import { updateProfileAction } from "./actions"
+import { useUserStore } from "@/app/(client)/_store/user"
 
 
 export const useProfileForm = () =>{
@@ -16,9 +17,11 @@ export const useProfileForm = () =>{
     control,
     watch } = useFormContext<ProfileSchema>()
   const { data: session } = useSession()
+  const user = useUserStore()
 
   const handleFormSubmit: SubmitHandler<ProfileSchema> = async(data) => {
     if ( !session?.user ) return
+    data.email = user.email
 
     const fd = new FormData()
 
@@ -26,7 +29,8 @@ export const useProfileForm = () =>{
       fd.append(k, v)
     }
 
-    await updateProfile(session, fd)
+    await updateProfileAction(fd)
+    // await updateProfile(session, fd)
   }
  
   return {

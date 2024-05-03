@@ -73,7 +73,7 @@ const Header = () =>{
           { renderNavlinks() }
         </ul>
         <Link
-          className="text-purple border-purple h-[42px] flex items-center justify-center w-[52px] border rounded md:w-auto md:px-[27px] md:h-[46px]"
+          className="text-purple border-purple h-[42px] flex items-center justify-center w-[52px] border rounded md:w-auto md:px-[27px] md:h-[46px] lg:transition-colors lg:hover:bg-light-purple"
           href="/preview">
           <div className="md:hidden">
             <EyeIcon />

@@ -35,11 +35,11 @@ const Image = () =>{
             { isImageValid && (
               <img
                 className="absolute inset-0 h-full w-full object-cover rounded-lg" 
-                src={URL.createObjectURL(watch("image"))} 
+                src={ URL.createObjectURL(watch("image"))} 
                 alt="" />
             ) }
             <label
-              className={`absolute inset-0 rounded-lg bg-light-purple flex flex-col items-center justify-center text-purple ${ isImageValid && "opacity-0 lg:hover:opacity-100 lg:bg-black lg:bg-opacity-50 lg:cursor-pointer lg:text-white lg:transition-all" }`}
+              className={`absolute inset-0 rounded-lg bg-light-purple flex flex-col items-center justify-center text-purple lg:cursor-pointer ${ isImageValid && "opacity-0 lg:hover:opacity-100 lg:bg-black lg:bg-opacity-50 lg:cursor-pointer lg:text-white lg:transition-all" }`}
               htmlFor="profileImage">
               <div className="mb-2">
                 <ImageVector />

@@ -15,9 +15,7 @@ const Form = () =>{
         <h1 className="font-bold text-2xl text-dark-grey mb-2 md:text-[32px] leading-[1.5]">Profile Details</h1>
         <p className=" text-grey">Add your details to create a personal touch to your profile.</p>
       </div>
-      <form
-        className="lg:max-h-[500px] lg:overflow-y-auto"
-        onSubmit={ handleSubmit }>
+      <form onSubmit={ handleSubmit }>
         <div className="mb-6 px-6 md:px-10 md:mb-32">
           <div className="mb-6">
             <FormImage />
@@ -26,9 +24,7 @@ const Form = () =>{
             <div className="mb-3">
               <ProfileTextInput
                 label="First name *"
-                attributes={{
-                  id: "profileFirstname"
-                }}
+                attributes={{ id: "profileFirstname" }}
                 placeHolder="e.g John"
                 {...register("firstname")}
                 error={ formErrors.firstname?.message } />
@@ -36,9 +32,7 @@ const Form = () =>{
             <div className="mb-3">
               <ProfileTextInput
                 label="Last name *"
-                attributes={{
-                  id: "profileLastname"
-                }}
+                attributes={{ id: "profileLastname" }}
                 placeHolder="e.g Doe"
                 {...register("lastname")}
                 error={ formErrors.lastname?.message } />
@@ -58,9 +52,8 @@ const Form = () =>{
         </div>
         <div className="border-t border-t-borders p-4 w-full bottom-0 lg:absolute lg:py-6 lg:px-10">
           <button
-            className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25`}
-            type="submit"
-            aria-disabled={ false }>Save
+            className={`font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple md:px-[26px] md:ms-auto md:w-auto aria-disabled:bg-opacity-25 lg:hover:bg-purple-hover lg:transition-all`}
+            type="submit">Save
           </button>
         </div>
       </form>

@@ -6,48 +6,33 @@ import { eq } from "drizzle-orm"
 import { Session } from "next-auth"
 import cloudinary from "@/app/_server/utils/cloudinary"
 import { File } from "buffer"
+import { createAction } from "@/app/(client)/_lib/utils/action"
+import { zfd } from "zod-form-data"
+import { z } from "zod"
 
 
-export const updateProfile = async(userSession: Session, form: FormData) =>{
-  const input: {[k: string]: any} = {}
-  
-  for ( const [k, v] of form.entries()) {
-    input[k] = v
-  }
+const schema = zfd.formData(profileSchema
+  .omit({ image: true })
+  .merge(z.object({
+    image: z.any()
+  }))
+)
 
-  if ( !userSession.user ) {
-
-    return {
-      error: true,
-      data: "user:Login first"
-    }
-  }
-
-  const validatedFields = profileSchema.safeParse(input)
-
-  if ( !validatedFields.success ) {
-
-    return {
-      error: true,
-      data: validatedFields.error.flatten().fieldErrors
-    }
-  }
-
+export const updateProfileAction = createAction(schema, async(input) =>{
   const foundUser = await db.query.user.findFirst({
-    where: eq(user.email, userSession.user?.email as string)
+    where: eq(user.email,  input.email)
   })
 
   if ( !foundUser ) {
 
     return {
-      error: true,
-      data: "user:Login first"
+      error: "Please login first"
     }
   }
 
-  let userImage: null | string = null
+  let userImage = ""
 
-  if ( foundUser.image===null && typeof validatedFields.data.image!=="string" ) {
+  if ( foundUser.image===null && input.image && typeof input.image!=="string" ) {
     const createImage = async (img: File) => {
       const arrayBuffer = await img.arrayBuffer()
       const buffer = new Uint8Array(arrayBuffer)
@@ -71,18 +56,21 @@ export const updateProfile = async(userSession: Session, form: FormData) =>{
       }
     }
 
-    await createImage(validatedFields.data.image)
+    await createImage(input.image)
   }
-
-  await db.update(user).set(Object.assign({
-    firstName: validatedFields.data.firstname,
-    lastName: validatedFields.data.lastname, 
-  }, userImage!==null? { image: userImage } : null
-  )).where(eq(user.id, foundUser.id))
+  
+  await db
+    .update(user)
+    .set(Object.assign({
+      firstName: input.firstname,
+      lastName: input.lastname, 
+    }, userImage!==null? { image: userImage } : null))
+    .where(eq(user.id, foundUser.id))
 
   return {
-    success: true,
-    message: "Updated profile",
-    imageUrl: userImage
+    success: "Successfully updated profile",
+    data: {
+      image: userImage
+    }
   }
-}
+})
