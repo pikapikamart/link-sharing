@@ -1,10 +1,10 @@
 import { useUserStore } from "@/app/(client)/_store/user"
 import Link from "next/link"
 import { CopyToClipboard } from "react-copy-to-clipboard"
-import { useToast } from "../../../shared/toast/hook"
 import { AnimatePresence } from "framer-motion"
-import { ToastSuccess } from "../../../shared/toast/success"
-import { CopyIcon } from "../../../svgs/copy"
+import { useToast } from "@/app/(client)/_components/shared/toast/hook"
+import { ToastSuccess } from "@/app/(client)/_components/shared/toast/success"
+import { CopyIcon } from "@/app/(client)/_components/svgs/copy"
 
 
 const Header = () =>{

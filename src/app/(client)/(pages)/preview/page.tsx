@@ -1,7 +1,7 @@
 "use client"
-import { PreviewHeader } from "../../_components/page/preview/header"
-import { PreviewProfile } from "../../_components/page/preview/header/profile"
 import { useSetupDefaultStoreData } from "../../_lib/hooks/useSetupDefaultStoreData"
+import { PreviewHeader } from "./_components/header"
+import { PreviewProfile } from "./_components/profile"
 
 
 const Page = () =>{
