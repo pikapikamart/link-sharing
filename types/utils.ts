@@ -8,3 +8,7 @@ export type PageSlug = {
     slug: string
   }
 }
+
+export type LayoutProps = {
+  children: React.ReactNode
+}
