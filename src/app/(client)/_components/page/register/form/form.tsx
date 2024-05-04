@@ -5,13 +5,15 @@ import { LogoIcon } from "../../../svgs/logo"
 import { PasswordIcon } from "../../../svgs/password"
 import { useRegisterForm } from "./hook"
 import { FormTextInput } from "../../../shared/form/input/text"
+import { Loader } from "../../../shared/loader"
 
 
 const Form = () =>{
   const { 
     register,
     handleSubmit,
-    formErrors } = useRegisterForm()
+    formErrors,
+    isPending } = useRegisterForm()
 
   return (
     <div>
@@ -65,8 +67,9 @@ const Form = () =>{
           <p className="mt-6 text-grey text-xs">Password must contain at least 8 characters</p>
         </div>
         <button
-          className="mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover"
-          type="submit">Create new account
+          className="mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple lg:hover:bg-purple-hover lg:transition-colors"
+          type="submit">
+          { isPending? <Loader /> : "Create new account" }
         </button>
         <p className="text-grey text-center flex flex-col items-center md:block">
           Already have an account? 

@@ -19,9 +19,7 @@ export const useRegisterForm = () =>{
     },
     getValues,
     watch,
-    setError } = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema)
-  })
+    setError } = useForm<RegisterSchema>({ resolver: zodResolver(registerSchema) })
   const query = trpc.auth.validate.useQuery({
     email: watch("email"),
     password: watch("password")
@@ -38,6 +36,7 @@ export const useRegisterForm = () =>{
 
   useEffect(() =>{
     if ( query.isSuccess ) {
+      
       signIn("credentials", {
         callbackUrl: '/',
         email: getValues("email"),
