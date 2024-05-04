@@ -40,7 +40,7 @@ const Form = () =>{
           </div>
           <div className="mb-6">
             <FormTextInput
-              label="Create password"
+              label="Password"
               attributes={{ 
                 id: "password" ,
                 type: "password"
@@ -53,7 +53,7 @@ const Form = () =>{
           </div>
         </div>
         <button
-          className={`mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple active:bg-purple-hover ${ isLoading && "active:bg-purple" }`}
+          className={`mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple lg:hover:bg-purple-hover lg:transition-colors ${ isLoading && "active:bg-purple" }`}
           type="submit">
           { isLoading? <Loader /> : "Login" }
         </button>

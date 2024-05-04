@@ -26,9 +26,7 @@ export const useRegisterForm = () =>{
       errors: formErrors
     },
     getValues,
-    setError } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema)
-  })
+    setError } = useForm<FormSchema>({ resolver: zodResolver(formSchema) })
   const { 
     mutate,
     isPending } = trpc.auth.register.useMutation({
@@ -65,6 +63,7 @@ export const useRegisterForm = () =>{
   return {
     register,
     handleSubmit: handleSubmit(handleFormSubmit),
-    formErrors
+    formErrors,
+    isPending
   }
 }
