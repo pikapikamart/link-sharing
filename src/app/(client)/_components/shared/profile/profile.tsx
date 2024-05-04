@@ -1,12 +1,15 @@
 import { ArrowRightIcon } from "@/app/(client)/_components/svgs/arrowRight"
 import { buildPreviewItem } from "@/app/(client)/_lib/utils/buildPreviewItems"
-import { useLinksStore } from "@/app/(client)/_store/links"
-import { useUserStore } from "@/app/(client)/_store/user"
+import { LinksState } from "@/app/(client)/_store/links"
+import { UserState } from "@/app/(client)/_store/user"
 
 
-const Profile = () =>{
-  const user = useUserStore()
-  const { links } = useLinksStore()
+type ProfileProps = {
+  user: UserState & LinksState
+}
+
+const Profile = ({ user }: ProfileProps) =>{
+  const { links } = user
 
   const renderLinks = () =>{
 

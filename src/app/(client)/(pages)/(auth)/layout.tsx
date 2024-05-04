@@ -1,7 +1,6 @@
 import { LayoutProps } from "@/types/utils"
 
 
-
 const Layout = ({ children }: LayoutProps) =>{
  
   return (

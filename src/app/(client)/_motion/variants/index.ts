@@ -1,6 +1,7 @@
+import { Variants } from "framer-motion"
 
 
-export const swiperVariant = {
+export const swiperVariant:Variants = {
   initial: {
     opacity: 0,
     x: "-5%"
@@ -15,7 +16,7 @@ export const swiperVariant = {
   }
 }
 
-export const fadeVariant = {
+export const fadeVariant: Variants = {
   initial: {
     opacity: 0
   },
