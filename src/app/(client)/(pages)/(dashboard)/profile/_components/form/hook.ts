@@ -7,7 +7,7 @@ import {
   useUserStore } from "@/app/(client)/_store/user"
 import { useAction } from "next-safe-action/hooks"
 import z from "zod"
-import { useToast } from "../../../shared/toast/hook"
+import { useToast } from "@/app/(client)/_components/shared/toast/hook"
 
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5

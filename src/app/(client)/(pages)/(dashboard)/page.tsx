@@ -1,4 +1,4 @@
-import { HomeForm } from "../../_components/page/home/form"
+import { HomeForm } from "./_components"
 
 
 const Page = () =>{

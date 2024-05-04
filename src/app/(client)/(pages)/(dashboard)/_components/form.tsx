@@ -1,11 +1,11 @@
 import { useLinksStore } from "@/app/(client)/_store/links"
-import { StartedVector } from "../../../svgs/started"
 import { useHomeForm } from "./hook"
 import { FormLinks } from "./links"
-import { Loader } from "../../../shared/loader"
 import { AnimatePresence } from "framer-motion"
-import { ToastSuccess } from "../../../shared/toast/success"
-import { UpdateIcon } from "../../../svgs/update"
+import { StartedVector } from "@/app/(client)/_components/svgs/started"
+import { Loader } from "@/app/(client)/_components/shared/loader"
+import { ToastSuccess } from "@/app/(client)/_components/shared/toast/success"
+import { UpdateIcon } from "@/app/(client)/_components/svgs/update"
 
 
 const Form = () =>{

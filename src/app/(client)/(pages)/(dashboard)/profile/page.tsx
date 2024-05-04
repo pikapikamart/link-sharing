@@ -1,4 +1,4 @@
-import { ProfileForm } from "../../../_components/page/profile/form"
+import { ProfileForm } from "./_components/form"
 
 
 const Page = () =>{

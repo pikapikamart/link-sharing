@@ -1,10 +1,10 @@
 import { AnimatePresence } from "framer-motion"
-import { Loader } from "../../../shared/loader"
 import { useProfileForm } from "./hook"
 import { FormImage } from "./image"
 import { ProfileTextInput } from "./input/text"
-import { ToastSuccess } from "../../../shared/toast/success"
-import { UpdateIcon } from "../../../svgs/update"
+import { Loader } from "@/app/(client)/_components/shared/loader"
+import { ToastSuccess } from "@/app/(client)/_components/shared/toast/success"
+import { UpdateIcon } from "@/app/(client)/_components/svgs/update"
 
 
 const Form = () =>{

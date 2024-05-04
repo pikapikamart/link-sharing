@@ -7,7 +7,7 @@ import {
 import { LinksSchema } from "@/app/_server/trpc/routers/links/schema"
 import { trpc } from "@/app/(client)/_lib/trpc"
 import { platforms } from "@/app/_server/database/schema"
-import { useToast } from "../../../shared/toast/hook"
+import { useToast } from "@/app/(client)/_components/shared/toast/hook"
 
 
 export const useHomeFormContext = () => useContext(HomeFormContext)

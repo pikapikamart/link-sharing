@@ -12,9 +12,7 @@ import {
 
 
 const ProfileForm = () => {
-  const methods = useForm<ProfileSchema>({
-    resolver: zodResolver(profileSchema)
-  })
+  const methods = useForm<ProfileSchema>({ resolver: zodResolver(profileSchema)})
   const user = useUserStore()
   
   useEffect(() =>{

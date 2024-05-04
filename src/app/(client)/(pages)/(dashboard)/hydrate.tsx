@@ -1,5 +1,4 @@
 "use client"
-
 import { useSetupDefaultStoreData } from "../../_lib/hooks/useSetupDefaultStoreData"
 
 
@@ -7,7 +6,7 @@ type HydrateProps = {
   children: React.ReactNode
 }
 
-const Hydate = ({ children }: HydrateProps) =>{
+const Hydrate = ({ children }: HydrateProps) =>{
   useSetupDefaultStoreData()
 
   return (
@@ -18,4 +17,4 @@ const Hydate = ({ children }: HydrateProps) =>{
 }
 
 
-export default Hydate
+export default Hydrate
