@@ -1,11 +1,11 @@
 "use client"
 import Link from "next/link"
-import { EmailIcon } from "../../../svgs/email"
-import { LogoIcon } from "../../../svgs/logo"
-import { PasswordIcon } from "../../../svgs/password"
 import { useRegisterForm } from "./hook"
-import { FormTextInput } from "../../../shared/form/input/text"
-import { Loader } from "../../../shared/loader"
+import { LogoIcon } from "@/app/(client)/_components/svgs/logo"
+import { FormTextInput } from "@/app/(client)/_components/shared/form/input/text"
+import { EmailIcon } from "@/app/(client)/_components/svgs/email"
+import { PasswordIcon } from "@/app/(client)/_components/svgs/password"
+import { Loader } from "@/app/(client)/_components/shared/loader"
 
 
 const Form = () =>{
@@ -13,7 +13,7 @@ const Form = () =>{
     register,
     handleSubmit,
     formErrors,
-    isPending } = useRegisterForm()
+    isLoading } = useRegisterForm()
 
   return (
     <div>
@@ -24,8 +24,8 @@ const Form = () =>{
         className="max-w-[476px] mx-auto rounded-lg md:p-10 md:bg-white"
         onSubmit={ handleSubmit }>
         <div className="mb-10">
-          <h1 className="text-dark-grey text-2xl font-bold mb-2 md:text-[32px]">Create account</h1>
-          <p className="text-grey">Let’s get you started sharing your links!</p>
+          <h1 className="text-dark-grey text-2xl font-bold mb-2 md:text-[32px]">Login</h1>
+          <p className="text-grey">Add your details below to get back into the app</p>
         </div>
         <div className="mb-6">
           <div className="mb-6">
@@ -40,42 +40,28 @@ const Form = () =>{
           </div>
           <div className="mb-6">
             <FormTextInput
-              label="Create password"
+              label="Password"
               attributes={{ 
                 id: "password" ,
                 type: "password"
               }}
-              placeHolder="At least .8 characters"
+              placeHolder="Enter your password"
               error={ formErrors.password?.message }
               { ...register("password") }>
               <PasswordIcon />
             </FormTextInput>
           </div>
-          <div className="mb-6">
-            <FormTextInput
-              label="Confirm password"
-              attributes={{ 
-                id: "confirmPassword" ,
-                type: "password"
-              }}
-              placeHolder="At least .8 characters"
-              error={ formErrors.confirmPassword?.message }
-              { ...register("confirmPassword") }>
-              <PasswordIcon />
-            </FormTextInput>
-          </div>
-          <p className="mt-6 text-grey text-xs">Password must contain at least 8 characters</p>
         </div>
         <button
-          className="mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple lg:hover:bg-purple-hover lg:transition-colors"
+          className={`mb-6 font-semibold text-white h-[46px] w-full flex items-center justify-center rounded-lg bg-purple lg:hover:bg-purple-hover lg:transition-colors ${ isLoading && "active:bg-purple" }`}
           type="submit">
-          { isPending? <Loader /> : "Create new account" }
+          { isLoading? <Loader /> : "Login" }
         </button>
         <p className="text-grey text-center flex flex-col items-center md:block">
-          Already have an account? 
+          Don't have an account? 
           <Link
             className="text-purple md:ml-[2px]" 
-            href="/login">Login
+            href="/register">Create account
           </Link>
         </p>
       </form>
