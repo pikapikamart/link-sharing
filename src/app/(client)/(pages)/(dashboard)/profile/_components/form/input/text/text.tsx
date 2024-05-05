@@ -46,5 +46,7 @@ const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTML
   )
 })
 
+Text.displayName = "ProfileTextInput"
+
 
 export default Text

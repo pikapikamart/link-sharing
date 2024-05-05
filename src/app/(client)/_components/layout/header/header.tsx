@@ -30,7 +30,7 @@ const Header = () =>{
         <Link
           className={`relative z-10 h-full mr-[2px] flex items-center justify-center w-[64px] rounded text-grey md:w-auto md:px-[27px] lg:hover:text-purple ${ activeNavItem===link.href && "text-purple" }`}
           href={ link.href }
-          aria-current={`${ pathname===link.href? "page" : false }`}>
+          aria-current={pathname===link.href? 'page' : 'false'}>
           { link.icon() }
           <span className="hidden md:inline md:ml-2">{ link.label }</span>
         </Link>

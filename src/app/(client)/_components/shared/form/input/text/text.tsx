@@ -53,5 +53,7 @@ const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTML
   )
 })
 
+Text.displayName = "FormTextInput"
+
 
 export default Text
