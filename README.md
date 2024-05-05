@@ -42,7 +42,8 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL[Live site](https://link-sharing-devs.vercel.app/)
+- Solution URL [Solution site](https://www.frontendmentor.io/solutions/link-sharing-app-nextjs-typescript-tailwind-RrwJFUT9uy)
+- Live Site URL [Live site](https://link-sharing-devs.vercel.app/)
 
 ## My process
 
