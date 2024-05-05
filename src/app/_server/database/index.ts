@@ -25,7 +25,7 @@ const createConnection = () =>{
   } else {
 
     const connection = mysql.createPool({
-      uri: process.env.NODE_ENV==="development"? process.env.DB_URI_PROD : process.env.DB_URI_PROD
+      uri: process.env.NODE_ENV==="development"? process.env.DB_URI : process.env.DB_URI_PROD
     })
 
     cached.conn = connection
