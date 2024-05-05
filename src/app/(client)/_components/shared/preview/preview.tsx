@@ -78,53 +78,51 @@ const Preview = () =>{
     <div className="hidden bg-white rounded-lg relative lg:flex lg:items-center lg:justify-center">
       <div className="relative">
         <PhoneFrameVector />
-        <div className="absolute inset-0 pt-16 px-8">
+        <div className="absolute inset-0 pt-16 px-8 flex flex-col justify-start">
           <motion.div
             initial="initial"
             animate="animate"
             exit="initial" 
-            className="flex flex-col items-center mb-14">
-            <AnimatePresence>
-              { !!user.image && (
-                <motion.div
-                  key="profilePicture"
-                  variants={ fadeVariant } 
-                  className="rounded-full border-4 max-w-max mx-auto border-purple mb-6">
-                  <img 
-                    className="w-24 h-24 rounded-full object-cover"
-                    src={ user.image } 
-                    alt={`${ user.firstName?? "" } ${ user.lastName?? "" }`} />
-                </motion.div>
-              ) }
-              { !user.image && (
-                <motion.div 
-                  key="profilePictureBg"
-                  variants={ fadeVariant }
-                  className="bg-[#EEEEEE] rounded-full w-24 h-24 mb-6" />
-              ) }
-              { !!user.firstName && !!user.lastName?
-                <motion.p
-                  key="profileName"
-                  variants={fadeVariant} 
-                  className="font-semibold text-dark-grey text-lg mb-2">{ user.firstName } { user.lastName }</motion.p>
-                :
-                <motion.div
-                  key="profileNameBg"
-                  variants={fadeVariant} 
-                  className="bg-[#EEEEEE] w-[160px] h-4 rounded-2xl mb-3"/>
-              }
-              { user.email!==""? 
-                <motion.p 
-                  key="profileEmail"
-                  variants={fadeVariant} 
-                  className="text-grey text-sm">{ user.email }</motion.p>
-                :
-                <motion.div 
-                  key="profileEmailBg"
-                  variants={fadeVariant} 
-                  className="bg-[#EEEEEE] w-[72px] h-2 rounded-2xl" />
-              }
-            </AnimatePresence>
+            className="flex flex-col items-center justify-start mb-14">
+            { !!user.image && (
+              <motion.div
+                key="profilePicture"
+                variants={ fadeVariant } 
+                className="rounded-full border-4 max-w-max mx-auto border-purple mb-6">
+                <img 
+                  className="w-24 h-24 rounded-full object-cover"
+                  src={ user.image } 
+                  alt={`${ user.firstName?? "" } ${ user.lastName?? "" }`} />
+              </motion.div>
+            ) }
+            { !user.image && (
+              <motion.div 
+                key="profilePictureBg"
+                variants={ fadeVariant }
+                className="bg-[#EEEEEE] rounded-full w-24 h-24 mb-6" />
+            ) }
+            { !!user.firstName && !!user.lastName?
+              <motion.p
+                key="profileName"
+                variants={fadeVariant} 
+                className="font-semibold text-dark-grey text-lg mb-2">{ user.firstName } { user.lastName }</motion.p>
+              :
+              <motion.div
+                key="profileNameBg"
+                variants={fadeVariant} 
+                className="bg-[#EEEEEE] w-[160px] h-4 rounded-2xl mb-3"/>
+            }
+            { user.email!==""? 
+              <motion.p 
+                key="profileEmail"
+                variants={fadeVariant} 
+                className="text-grey text-sm">{ user.email }</motion.p>
+              :
+              <motion.div 
+                key="profileEmailBg"
+                variants={fadeVariant} 
+                className="bg-[#EEEEEE] w-[72px] h-2 rounded-2xl" />
+            }
           </motion.div>
           <div className="relative">
             <div className={`transition-opacity p-1 ${ links.length >=5? "opacity-0" : "" }`}>
