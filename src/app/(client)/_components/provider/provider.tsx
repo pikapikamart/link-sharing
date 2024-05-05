@@ -18,7 +18,7 @@ const Provider = ({ children }: ProviderProps) => {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: process.env.NEXT_PUBLIC_VERCEL_URL ? "https://links-sharing-devs.vercel.app/api/trpc/" : 'http://localhost:3000/api/trpc/',
+          url: process.env.NEXT_PUBLIC_VERCEL_URL ? "https://link-sharing-devs.vercel.app/api/trpc/" : 'http://localhost:3000/api/trpc/',
 
           // You can pass any HTTP headers you wish here
           async headers() {
