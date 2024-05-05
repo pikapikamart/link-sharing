@@ -1,11 +1,11 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import mysql, { Connection } from "mysql2";
+import mysql, {  Pool } from "mysql2";
 import * as schema from "./schema"
 
 
 type MySQL = {
-  conn: null | Connection,
-  promise: null | Promise<Connection>
+  conn: null | Pool,
+  promise: null | Promise<Pool>
 }
 
 declare global {
@@ -24,8 +24,8 @@ const createConnection = () =>{
     return cached.conn;
   } else {
 
-    const connection = mysql.createConnection({
-      uri: process.env.NODE_ENV==="development"? process.env.DB_URI : process.env.DB_URI_PROD
+    const connection = mysql.createPool({
+      uri: process.env.NODE_ENV==="development"? process.env.DB_URI_PROD : process.env.DB_URI_PROD
     })
 
     cached.conn = connection
