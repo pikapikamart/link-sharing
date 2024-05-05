@@ -1,35 +1,37 @@
 import { getToken } from 'next-auth/jwt'
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import type { 
+  NextRequest, 
+  NextMiddleware } from 'next/server'
  
 
-const middleware = async (request: NextRequest) => {
+const middleware: NextMiddleware = async (request: NextRequest) => {
   const token = await getToken({ req: request })
+  const pathname = request.nextUrl.pathname
+  const areMainNavigationsIncluded = /\/profile$|\/preview$|\/$/.test(pathname)
 
-  if ( !token ) {
+  if ( token ) {
 
-    return NextResponse.redirect(new URL("/login", request.url))
+    if ( pathname === "/login" || pathname === "/register" ) {
+      
+      return NextResponse.redirect(new URL("/", request.url))
+    }
+
+    return null
   }
 
-  if ( request.nextUrl.pathname.startsWith("/profile") ) {
-    
-    return NextResponse.rewrite(new URL('/profile', request.url))
+  if (!token && !areMainNavigationsIncluded) {
+  
+    return NextResponse.rewrite(new URL(pathname, request.url))
   }
 
-  if ( request.nextUrl.pathname.startsWith("/preview") ) {
-    
-    return NextResponse.rewrite(new URL('/preview', request.url))
-  }
-
-  return NextResponse.rewrite(new URL('/', request.url))
+  return NextResponse.redirect(new URL("/login", request.url))
 }
 
 export { middleware }
  
 export const config = {
   matcher: [
-    "/",
-    "/profile",
-    "/preview"
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 }
