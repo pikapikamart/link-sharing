@@ -6,7 +6,7 @@ export default defineConfig({
   out: "./src/app/_server/database/migrations",
   driver: "mysql2",
   dbCredentials: {
-    uri: process.env.DB_URI as string
+    uri: process.env.NODE_ENV==="development"? process.env.DB_URI as string : process.env.DB_URI_PROD as string
   },
   verbose: true,
   strict: true,
