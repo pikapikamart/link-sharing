@@ -12,15 +12,17 @@ const Page = () =>{
   const { links } = useLinksStore()
 
   return (
-    <div className="relative bg-light-grey
-      before:absolute before:left-0 before:right-0 before:top-0 before:h-[360px] before:rounded-b-[32px] md:before:bg-purple">
-      <PreviewHeader />
-      <main className="relative z-10 min-h-[calc(100vh-78px)] py-[60px] px-14 md:min-h-[calc(100vh-126px)]">
-        <Profile user={{
-          ...user,
-          links
-        }} />
-      </main>
+    <div className="bg-light-grey relative">
+      <div className="max-w-[1680px] mx-auto 
+        before:absolute before:left-0 before:right-0 before:top-0 before:h-[360px] before:rounded-b-[32px] md:before:bg-purple">
+        <PreviewHeader />
+        <main className="relative z-10 min-h-[calc(100vh-78px)] py-[60px] px-14 md:min-h-[calc(100vh-126px)]">
+          <Profile user={{
+            ...user,
+            links
+          }} />
+        </main>
+      </div>
     </div>
   )
 }
