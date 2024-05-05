@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { instrument_sans } from "../_lib/utils/fonts";
 import { Provider } from "../_components/provider";
+import { Analytics } from "@vercel/analytics/react"
 
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <body className={`${ instrument_sans } font-instrument`}>
         <Provider>
           { children }
+          <Analytics />
         </Provider>
       </body>
     </html>
