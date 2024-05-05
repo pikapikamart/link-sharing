@@ -1,15 +1,14 @@
-import { useUserStore } from "@/app/(client)/_store/user"
 import Link from "next/link"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { AnimatePresence } from "framer-motion"
 import { useToast } from "@/app/(client)/_components/shared/toast/hook"
 import { ToastSuccess } from "@/app/(client)/_components/shared/toast/success"
 import { CopyIcon } from "@/app/(client)/_components/svgs/copy"
+import { usePreviewHeader } from "./hook"
 
 
 const Header = () =>{
-  const user = useUserStore()
-  const currentUrl = window.location.href
+  const { previewUrl } = usePreviewHeader()
   const { shouldShow, handleChangeToast } = useToast()
 
   return (
@@ -20,7 +19,7 @@ const Header = () =>{
           href="/">Back to Editor
         </Link>
         <CopyToClipboard 
-          text={ `${ currentUrl.substring(0, currentUrl.lastIndexOf("/")+1) }${ user.username }`}
+          text={ previewUrl }
           onCopy={() => handleChangeToast(true)}>
           <button
             className="text-white font-semibold bg-purple h-[46px] flex items-center px-7 border rounded lg:transition-colors lg:hover:bg-purple-hover">Share Link

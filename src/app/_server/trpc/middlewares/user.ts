@@ -3,8 +3,8 @@ import { trpcError } from "../utils";
 
 
 export const isAuthenticatedUser = middleware(async({ ctx, next }) =>{
-
-  if ( ctx.token===null ) {
+  
+  if ( ctx.session===null ) {
 
     return trpcError("UNAUTHORIZED", "Please login first")
   }

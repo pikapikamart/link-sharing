@@ -2,9 +2,7 @@
 import { useLinksStore } from "@/app/(client)/_store/links"
 import { ArrowRightIcon } from "../../svgs/arrowRight"
 import { useUserStore } from "@/app/(client)/_store/user"
-import { 
-  motion,
-  AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { PhoneFrameVector } from "../../svgs/phoneFrame"
 import { 
   fadeVariant, 

@@ -1,14 +1,15 @@
 import { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
-import { getToken } from 'next-auth/jwt';
+import { getServerSession } from 'next-auth';
+import { nextAuthOptions } from '../../utils/auth';
 
 
 export const  createContext = async({ req, resHeaders}: FetchCreateContextFnOptions) => {
-  const token = await getToken({ req })
-  
+  const session = await getServerSession(nextAuthOptions)
+ 
   return { 
     req, 
     resHeaders,
-    token
+    session
   }
 }
 

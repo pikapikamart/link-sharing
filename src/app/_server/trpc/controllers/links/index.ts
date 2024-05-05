@@ -1,6 +1,8 @@
 import { db } from "@/app/_server/database";
 import { Context } from "../../context";
-import { LinksSchema, linksSchema } from "../../routers/links/schema";
+import { 
+  LinksSchema, 
+  linksSchema } from "../../routers/links/schema";
 import { 
   eq, 
   inArray } from "drizzle-orm";
@@ -16,7 +18,7 @@ import { Link } from "@/app/(client)/_store/links";
 
 export const setHandler = async(input: LinksSchema, ctx: Context) =>{
   const foundUser = await db.query.user.findFirst({
-    where: eq(user.email, ctx.token?.email as string),
+    where: eq(user.email, ctx.session?.user?.email as string),
     with: {
       links: {
         columns: {
@@ -92,7 +94,7 @@ export const setHandler = async(input: LinksSchema, ctx: Context) =>{
 
 export const getHandler = async( ctx: Context ) =>{
   const foundUser = await db.query.user.findFirst({
-    where: eq(user.email, ctx.token?.email as string),
+    where: eq(user.email, ctx.session?.user?.email as string),
     columns: {
       password: false
     },

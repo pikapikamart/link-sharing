@@ -9,7 +9,7 @@ import {
 
 export const profileHandler = async(ctx: Context) =>{
   const foundUser = await db.query.user.findFirst({
-    where: eq(user.email, ctx.token?.email as string),
+    where: eq(user.email, ctx.session?.user?.email as string),
     columns: {
       password: false,
       id: false
