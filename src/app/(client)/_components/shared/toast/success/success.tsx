@@ -24,13 +24,15 @@ const Success = ({ message, children }: SuccessProps) => {
         opacity: 0,
         y: "5%"
       }}
-      className="fixed z-[999] flex items-center py-4 px-6 rounded-lg bottom-10 left-1/2 !-translate-x-1/2 bg-dark-grey">
-      <div className="mr-2">
-        { children }
+      className="fixed z-[999] w-full flex justify-center px-4 bottom-10 left-0">
+      <div className="flex items-center p-4 rounded-lg bg-dark-grey md:px-6">
+        <div className="mr-2">
+          { children }
+        </div>
+        <p className="text-white font-semibold text-sm md:text-base">
+          { message }
+        </p>
       </div>
-      <p className="text-white font-semibold">
-        { message }
-      </p>
     </motion.div>
   )
 }

@@ -16,7 +16,7 @@ const Form = () =>{
     shouldShow } = useProfileForm()
 
   return (
-    <div className="bg-white rounded-lg pt-6 max-w-[808px] relative min-h-[calc(100vh-90px)] md:pt-10">
+    <div className="bg-white rounded-lg pt-6 relative min-h-[calc(100vh-90px)] md:pt-10">
       <div className="mb-10 px-6 md:px-10">
         <h1 className="font-bold text-2xl text-dark-grey mb-2 md:text-[32px] leading-[1.5]">Profile Details</h1>
         <p className=" text-grey">Add your details to create a personal touch to your profile.</p>
