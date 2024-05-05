@@ -34,7 +34,7 @@ const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTML
           { ...attributes }
           className={`w-full rounded-lg border-borders border text-dark-grey px-4 py-3 placeholder:opacity-50 ${ error && "border-red pr-[128px]" }`}
           placeholder={ placeHolder }
-          aria-labelledby={`error-${ attributes.id }`} />
+          {...error && {...{"aria-labelledby": `error-${ attributes.id }`}}} />
         { error && (
           <span 
             className="absolute right-4 top-1/2 -translate-y-1/2 text-red text-xs"
